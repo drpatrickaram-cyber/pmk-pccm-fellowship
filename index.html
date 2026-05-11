@@ -7,1732 +7,596 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <style>
-    /* ─── VARIABLES ─── */
+    /* ─── VARIABLES — Lighter, Cleaner Blue Theme ─── */
     :root {
-      --navy:       #1a2264;
-      --navy-dark:  #0f1445;
-      --navy-mid:   #243080;
-      --navy-light: #e8ecf8;
+      --navy:       #1d4ed8;
+      --navy-dark:  #1e3a8a;
+      --navy-mid:   #2563eb;
+      --navy-light: #dbeafe;
+      --navy-pale:  #f0f6ff;
       --gold:       #c9a22a;
-      --gold-light: #e8c84a;
-      --gold-pale:  #fdf6e0;
+      --gold-light: #e2b94a;
+      --gold-pale:  #fef9ec;
       --white:      #ffffff;
-      --bg:         #f4f6fb;
+      --bg:         #f8faff;
       --text:       #1e293b;
       --muted:      #64748b;
-      --border:     #dde3f0;
+      --border:     #e2eaf8;
       --radius:     14px;
-      --shadow:     0 4px 24px rgba(26,34,100,.10);
-      --shadow-lg:  0 12px 48px rgba(26,34,100,.18);
+      --shadow:     0 2px 16px rgba(30,64,175,.08);
+      --shadow-md:  0 6px 28px rgba(30,64,175,.13);
+      --shadow-lg:  0 14px 48px rgba(30,64,175,.18);
     }
-
-    /* ─── RESET ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Sarabun', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      font-size: 16px;
-    }
+    body { font-family: 'Sarabun', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; font-size: 16px; }
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
     ul { list-style: none; }
 
-    /* ─── LANGUAGE TOGGLE ─── */
-    [data-en] { display: inline; }
-    .lang-en-block { display: none; }
+    /* Language */
+    .lang-en-inline { display: none; }
+    .lang-th-inline { display: inline; }
+    .lang-th-block  { display: block; }
+    .lang-en-block  { display: none; }
     body.en-mode .lang-th-inline { display: none; }
     body.en-mode .lang-en-inline { display: inline; }
     body.en-mode .lang-th-block  { display: none; }
     body.en-mode .lang-en-block  { display: block; }
-    .lang-en-inline { display: none; }
-    .lang-th-inline { display: inline; }
-    .lang-th-block  { display: block; }
 
-    /* ─── NAVBAR ─── */
+    /* ── NAVBAR (white / light) ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-      background: rgba(15,20,69,.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,162,42,.25);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 12px rgba(30,64,175,.07);
       padding: 0 32px;
       display: flex; align-items: center; justify-content: space-between;
-      height: 64px;
-      transition: background .3s;
+      height: 64px; transition: height .3s;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 10px;
-    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
     .nav-logo img { width: 38px; height: 38px; object-fit: contain; border-radius: 50%; }
-    .nav-logo-text {
-      color: var(--white); font-size: 14px; font-weight: 700;
-      line-height: 1.25;
-    }
-    .nav-logo-text span { color: var(--gold-light); }
-    .nav-links {
-      display: flex; align-items: center; gap: 6px;
-    }
-    .nav-links a {
-      color: rgba(255,255,255,.80);
-      font-size: 13px; font-weight: 500;
-      padding: 6px 12px; border-radius: 8px;
-      transition: all .2s;
-    }
-    .nav-links a:hover { color: var(--gold-light); background: rgba(201,162,42,.12); }
-    .nav-right { display: flex; align-items: center; gap: 12px; }
-    .lang-btn {
-      background: rgba(201,162,42,.15);
-      border: 1px solid rgba(201,162,42,.4);
-      color: var(--gold-light);
-      font-size: 12px; font-weight: 700; font-family: 'Sarabun', sans-serif;
-      padding: 5px 14px; border-radius: 20px; cursor: pointer;
-      transition: all .2s; letter-spacing: .5px;
-    }
-    .lang-btn:hover { background: var(--gold); color: var(--navy-dark); }
-    .apply-nav-btn {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      color: var(--navy-dark);
-      font-size: 13px; font-weight: 700; font-family: 'Sarabun', sans-serif;
-      padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer;
-      transition: all .25s; box-shadow: 0 2px 8px rgba(201,162,42,.35);
-    }
-    .apply-nav-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(201,162,42,.5); }
+    .nav-logo-text { color: var(--navy-dark); font-size: 14px; font-weight: 700; line-height: 1.25; }
+    .nav-logo-text .sub { font-size: 11px; font-weight: 400; color: var(--muted); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-links a { color: var(--muted); font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 8px; transition: all .2s; }
+    .nav-links a:hover { color: var(--navy); background: var(--navy-pale); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .lang-btn { background: var(--navy-pale); border: 1px solid var(--navy-light); color: var(--navy); font-size: 12px; font-weight: 700; font-family: 'Sarabun', sans-serif; padding: 5px 14px; border-radius: 20px; cursor: pointer; transition: all .2s; }
+    .lang-btn:hover { background: var(--navy-light); }
+    .apply-nav-btn { background: linear-gradient(135deg, var(--navy-dark), var(--navy)); color: #fff; font-size: 13px; font-weight: 700; font-family: 'Sarabun', sans-serif; padding: 8px 20px; border-radius: 20px; border: none; cursor: pointer; transition: all .25s; box-shadow: 0 2px 10px rgba(30,64,175,.22); }
+    .apply-nav-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(30,64,175,.32); }
 
-    /* ─── HERO ─── */
+    /* ── HERO ── */
     #hero {
       min-height: 100vh;
-      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 45%, #1e3a8a 100%);
+      background: linear-gradient(140deg, #0f2460 0%, #1e3a8a 38%, #1d4ed8 72%, #3b82f6 100%);
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 100px 24px 60px;
+      text-align: center; padding: 100px 24px 80px;
     }
-    .hero-bg-orbs {
-      position: absolute; inset: 0; pointer-events: none; overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%;
-      background: radial-gradient(circle, rgba(201,162,42,.18) 0%, transparent 70%);
-    }
-    .orb-1 { width: 600px; height: 600px; top: -200px; right: -150px; }
-    .orb-2 { width: 400px; height: 400px; bottom: -100px; left: -100px; }
-    .orb-3 { width: 250px; height: 250px; top: 40%; left: 10%; }
-    .hero-grid {
-      position: absolute; inset: 0;
-      background-image: linear-gradient(rgba(201,162,42,.04) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(201,162,42,.04) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 820px; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(201,162,42,.15); border: 1px solid rgba(201,162,42,.4);
-      color: var(--gold-light); font-size: 13px; font-weight: 600;
-      padding: 7px 18px; border-radius: 20px;
-      margin-bottom: 32px; letter-spacing: .5px;
-    }
-    .hero-badge i { font-size: 11px; }
-    .hero-logo { width: 90px; height: 90px; object-fit: contain; margin: 0 auto 24px; border-radius: 50%; background: rgba(255,255,255,.08); padding: 6px; }
-    .hero-title {
-      color: var(--white); font-size: clamp(26px, 5vw, 46px); font-weight: 800;
-      line-height: 1.2; margin-bottom: 12px;
-    }
+    .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 70% 55% at 65% 40%, rgba(96,165,250,.22) 0%, transparent 70%); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: 56px 56px; }
+    .hero-orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-orb-1 { width: 480px; height: 480px; top: -110px; right: -80px; background: radial-gradient(circle, rgba(201,162,42,.16) 0%, transparent 70%); }
+    .hero-orb-2 { width: 300px; height: 300px; bottom: -50px; left: -50px; background: radial-gradient(circle, rgba(201,162,42,.10) 0%, transparent 70%); }
+    .hero-content { position: relative; z-index: 2; max-width: 850px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); color: rgba(255,255,255,.92); font-size: 13px; font-weight: 600; padding: 7px 20px; border-radius: 24px; margin-bottom: 26px; }
+    .hero-logo { width: 86px; height: 86px; object-fit: contain; margin: 0 auto 20px; border-radius: 50%; background: rgba(255,255,255,.12); padding: 8px; border: 2px solid rgba(255,255,255,.22); }
+    .hero-title { color: #fff; font-size: clamp(28px,5vw,48px); font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
     .hero-title .gold-text { color: var(--gold-light); }
-    .hero-subtitle {
-      color: rgba(255,255,255,.70); font-size: clamp(16px, 2.5vw, 20px);
-      font-weight: 400; margin-bottom: 20px;
-    }
-    .hero-hospital {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--gold-light); font-size: 15px; font-weight: 600;
-      margin-bottom: 48px;
-    }
-    .hero-hospital i { opacity: .8; }
-    .hero-stats {
-      display: flex; justify-content: center; gap: 40px;
-      margin-bottom: 48px; flex-wrap: wrap;
-    }
-    .stat-item { text-align: center; }
-    .stat-num {
-      font-size: 36px; font-weight: 800; color: var(--gold-light);
-      line-height: 1;
-    }
-    .stat-label { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 4px; }
-    .hero-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      color: var(--navy-dark); font-size: 16px; font-weight: 700;
-      font-family: 'Sarabun', sans-serif;
-      padding: 14px 36px; border-radius: 12px; border: none; cursor: pointer;
-      transition: all .25s; box-shadow: 0 4px 20px rgba(201,162,42,.4);
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,162,42,.55); }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(255,255,255,.4);
-      color: var(--white); font-size: 16px; font-weight: 600;
-      font-family: 'Sarabun', sans-serif;
-      padding: 14px 36px; border-radius: 12px; cursor: pointer;
-      transition: all .25s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-outline:hover { background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.7); }
-    .scroll-hint {
-      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-      color: rgba(255,255,255,.45); font-size: 12px; text-align: center; z-index: 2;
-      animation: bounce 2s infinite;
-    }
-    .scroll-hint i { font-size: 20px; display: block; margin-top: 4px; }
-    @keyframes bounce {
-      0%,100% { transform: translateX(-50%) translateY(0); }
-      50%      { transform: translateX(-50%) translateY(6px); }
-    }
+    .hero-subtitle { color: rgba(255,255,255,.72); font-size: clamp(15px,2vw,19px); margin-bottom: 12px; }
+    .hero-hospital { display: inline-flex; align-items: center; gap: 8px; color: var(--gold-light); font-size: 14.5px; font-weight: 600; margin-bottom: 28px; }
 
-    /* ─── SECTION COMMON ─── */
+    /* Position Banner */
+    .position-banner {
+      display: inline-flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center;
+      background: rgba(255,255,255,.09); border: 1.5px solid rgba(201,162,42,.45);
+      border-radius: 16px; padding: 16px 28px; margin-bottom: 32px; gap: 24px;
+    }
+    .pos-item { display: flex; align-items: center; gap: 10px; }
+    .pos-num { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #4a2e00; font-size: 22px; font-weight: 900; width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .pos-label { font-size: 14px; font-weight: 700; color: #fff; text-align: left; line-height: 1.3; }
+    .pos-label small { display: block; font-size: 11.5px; color: rgba(255,255,255,.6); font-weight: 400; margin-top: 1px; }
+    .pos-divider { width: 1px; height: 38px; background: rgba(255,255,255,.18); }
+
+    .hero-stats { display: flex; justify-content: center; gap: 36px; margin-bottom: 38px; flex-wrap: wrap; }
+    .stat-item { text-align: center; }
+    .stat-num { font-size: 34px; font-weight: 800; color: var(--gold-light); line-height: 1; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,.58); margin-top: 4px; }
+    .hero-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #4a2e00; font-size: 15px; font-weight: 800; font-family: 'Sarabun', sans-serif; padding: 14px 34px; border-radius: 12px; border: none; cursor: pointer; transition: all .25s; box-shadow: 0 4px 20px rgba(201,162,42,.38); display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,162,42,.52); }
+    .btn-outline { background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.38); color: #fff; font-size: 15px; font-weight: 600; font-family: 'Sarabun', sans-serif; padding: 14px 30px; border-radius: 12px; cursor: pointer; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-outline:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.7); }
+    .scroll-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.38); font-size: 12px; text-align: center; z-index: 2; animation: bounce 2.2s infinite; }
+    .scroll-hint i { font-size: 18px; display: block; margin-top: 4px; }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 55%{transform:translateX(-50%) translateY(7px)} }
+
+    /* ── SECTION COMMON ── */
     section { padding: 96px 24px; }
     .section-inner { max-width: 1180px; margin: 0 auto; }
-    .section-label {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--gold); font-size: 12px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 2px;
-      margin-bottom: 12px;
-    }
-    .section-label::before, .section-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--gold); width: 24px;
-    }
-    h2.section-title {
-      font-size: clamp(28px, 4vw, 40px); font-weight: 800;
-      color: var(--navy); margin-bottom: 10px; line-height: 1.2;
-    }
-    .section-desc {
-      color: var(--muted); font-size: 16px; max-width: 640px; margin-bottom: 56px;
-    }
-    .divider {
-      width: 56px; height: 4px;
-      background: linear-gradient(90deg, var(--gold), var(--gold-light));
-      border-radius: 2px; margin: 16px 0 20px;
-    }
+    .section-label { display: inline-flex; align-items: center; gap: 10px; color: var(--navy); font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px; }
+    .section-label::before,.section-label::after { content: ''; height: 1.5px; background: var(--navy); width: 18px; }
+    h2.section-title { font-size: clamp(26px,4vw,38px); font-weight: 800; color: var(--navy-dark); margin-bottom: 8px; line-height: 1.2; }
+    .section-desc { color: var(--muted); font-size: 15.5px; max-width: 620px; margin-bottom: 50px; line-height: 1.7; }
+    .divider { width: 50px; height: 4px; background: linear-gradient(90deg,var(--gold),var(--gold-light)); border-radius: 2px; margin: 12px 0 16px; }
+    .group-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); padding: 8px 0; border-bottom: 1.5px solid var(--border); margin-bottom: 24px; }
+    .group-label span { color: var(--navy-dark); }
 
-    /* ─── FACULTY ─── */
+    /* ── FACULTY ── */
     #faculty { background: var(--white); }
-    .faculty-group-label {
-      font-size: 13px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--muted);
-      padding: 8px 0; border-bottom: 1px solid var(--border);
-      margin-bottom: 28px;
-    }
-    .faculty-group-label span { color: var(--navy); }
-    .faculty-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 24px; margin-bottom: 48px;
-    }
-    .faculty-card {
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      background: var(--white);
-      transition: transform .3s, box-shadow .3s;
-      cursor: default;
-      position: relative;
-    }
+    .faculty-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(210px,1fr)); gap: 20px; margin-bottom: 40px; }
+    .faculty-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); background: #fff; border: 1px solid var(--border); transition: transform .3s, box-shadow .3s; position: relative; }
     .faculty-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .faculty-photo-wrap {
-      position: relative; overflow: hidden;
-      aspect-ratio: 3/4;
-      background: var(--navy-light);
-    }
-    .faculty-photo-wrap img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top;
-      transition: transform .4s;
-    }
+    .faculty-photo-wrap { position: relative; overflow: hidden; aspect-ratio: 3/4; background: var(--navy-pale); }
+    .faculty-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .4s; }
     .faculty-card:hover .faculty-photo-wrap img { transform: scale(1.05); }
-    .faculty-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(15,20,69,.97) 0%, rgba(15,20,69,.88) 50%, rgba(15,20,69,.3) 100%);
-      opacity: 0; transition: opacity .35s;
-      padding: 20px 16px;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      color: var(--white);
-    }
+    .faculty-overlay { position: absolute; inset: 0; background: linear-gradient(to top,rgba(30,58,138,.97) 0%,rgba(30,58,138,.88) 50%,rgba(30,58,138,.18) 100%); opacity: 0; transition: opacity .35s; padding: 16px 14px; display: flex; flex-direction: column; justify-content: flex-end; color: #fff; }
     .faculty-card:hover .faculty-overlay { opacity: 1; }
-    .overlay-edu {
-      font-size: 11.5px; line-height: 1.55; color: rgba(255,255,255,.85);
-      margin-bottom: 10px;
-    }
-    .overlay-int {
-      font-size: 11px; color: var(--gold-light);
-      line-height: 1.5; font-style: italic;
-    }
-    .faculty-info {
-      padding: 14px 16px 16px;
-      border-top: 3px solid var(--navy-light);
-    }
+    .overlay-edu { font-size: 11.5px; line-height: 1.55; color: rgba(255,255,255,.88); margin-bottom: 8px; }
+    .overlay-int { font-size: 11px; color: var(--gold-light); line-height: 1.5; font-style: italic; }
+    .faculty-info { padding: 13px 14px 15px; border-top: 3px solid var(--navy-light); background: #fff; }
     .faculty-card.senior .faculty-info { border-top-color: var(--gold); }
-    .faculty-name {
-      font-size: 14.5px; font-weight: 700; color: var(--navy); margin-bottom: 3px;
-    }
-    .faculty-rank { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .faculty-name { font-size: 13.5px; font-weight: 700; color: var(--navy-dark); margin-bottom: 3px; }
+    .faculty-rank { font-size: 11.5px; color: var(--muted); margin-bottom: 7px; }
     .specialty-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-    .tag {
-      font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
-      background: var(--navy-light); color: var(--navy);
-    }
-    .tag.gold-tag { background: var(--gold-pale); color: #7a5e00; }
-    .senior-badge {
-      position: absolute; top: 12px; left: 12px; z-index: 3;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      color: var(--navy-dark); font-size: 9px; font-weight: 800;
-      padding: 3px 9px; border-radius: 10px; text-transform: uppercase;
-      letter-spacing: .5px;
-    }
-    .head-badge {
-      position: absolute; top: 12px; right: 12px; z-index: 3;
-      background: var(--navy);
-      color: var(--white); font-size: 9px; font-weight: 700;
-      padding: 3px 9px; border-radius: 10px;
-    }
-    .hover-hint {
-      text-align: center; color: var(--muted); font-size: 13px; margin-top: -16px; margin-bottom: 48px;
-    }
+    .tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; background: var(--navy-pale); color: var(--navy); }
+    .tag.gold-tag { background: var(--gold-pale); color: #7a5000; }
+    .senior-badge { position: absolute; top: 10px; left: 10px; z-index: 3; background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: #4a2e00; font-size: 9px; font-weight: 800; padding: 3px 9px; border-radius: 10px; text-transform: uppercase; }
+    .head-badge { position: absolute; top: 10px; right: 10px; z-index: 3; background: var(--navy-dark); color: #fff; font-size: 9px; font-weight: 700; padding: 3px 9px; border-radius: 10px; }
+    .hover-hint { text-align: center; color: var(--muted); font-size: 13px; margin: -12px 0 42px; }
     .hover-hint i { color: var(--gold); }
 
-    /* ─── ACADEMIC ─── */
-    #academic { background: var(--bg); }
-    .schedule-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px; margin-bottom: 48px;
-    }
-    .schedule-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding: 24px;
-      border-left: 4px solid var(--navy);
-      transition: transform .25s, box-shadow .25s;
-    }
-    .schedule-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    /* ── ACADEMIC ── */
+    #academic { background: var(--navy-pale); }
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(265px,1fr)); gap: 16px; margin-bottom: 40px; }
+    .schedule-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px 22px; border: 1px solid var(--border); border-left: 4px solid var(--navy); transition: transform .25s,box-shadow .25s; }
+    .schedule-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
     .schedule-card.gold-border { border-left-color: var(--gold); }
-    .sched-day {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1.5px; color: var(--gold); margin-bottom: 6px;
-    }
-    .sched-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .sched-day { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy); margin-bottom: 6px; }
+    .schedule-card.gold-border .sched-day { color: var(--gold); }
+    .sched-title { font-size: 15px; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
     .sched-sub { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
-    .sched-time {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--navy-light); color: var(--navy);
-      font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 8px;
-    }
-    .monthly-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .monthly-card {
-      background: var(--white); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding: 20px 22px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .monthly-icon {
-      width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
-      background: var(--navy-light); display: flex; align-items: center; justify-content: center;
-      font-size: 20px; color: var(--navy);
-    }
-    .monthly-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .sched-time { display: inline-flex; align-items: center; gap: 6px; background: var(--navy-pale); color: var(--navy); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 8px; }
+    .monthly-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(255px,1fr)); gap: 14px; }
+    .monthly-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 16px 20px; display: flex; align-items: center; gap: 14px; border: 1px solid var(--border); }
+    .monthly-icon { width: 42px; height: 42px; border-radius: 11px; flex-shrink: 0; background: var(--navy-pale); display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--navy); }
+    .monthly-title { font-size: 14px; font-weight: 700; color: var(--navy-dark); }
     .monthly-freq { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .opd-section { margin-top: 48px; }
-    .opd-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 14px;
-    }
-    .opd-card {
-      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-      border-radius: var(--radius); padding: 18px 20px;
-      color: var(--white);
-    }
-    .opd-day { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--gold-light); margin-bottom: 4px; }
+    .opd-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(188px,1fr)); gap: 12px; }
+    .opd-card { background: linear-gradient(135deg,var(--navy-dark),var(--navy)); border-radius: var(--radius); padding: 16px 18px; color: #fff; }
+    .opd-day { font-size: 10.5px; font-weight: 700; letter-spacing: 1px; color: var(--gold-light); margin-bottom: 4px; }
     .opd-name { font-size: 14px; font-weight: 700; }
-    .opd-name-en { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 2px; }
+    .opd-name-en { font-size: 11.5px; color: rgba(255,255,255,.5); margin-top: 2px; }
 
-    /* ─── EQUIPMENT ─── */
+    /* ── EQUIPMENT (medium navy, not pitch black) ── */
     #equipment { background: var(--navy-dark); }
-    #equipment .section-title { color: var(--white); }
-    #equipment .section-desc { color: rgba(255,255,255,.6); }
     #equipment .section-label { color: var(--gold-light); }
-    #equipment .section-label::before,
-    #equipment .section-label::after { background: var(--gold-light); }
-    .equip-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 24px;
-    }
-    .equip-card {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(201,162,42,.2);
-      border-radius: var(--radius); padding: 32px 28px;
-      transition: transform .3s, background .3s, border-color .3s;
-    }
-    .equip-card:hover {
-      transform: translateY(-6px);
-      background: rgba(201,162,42,.08);
-      border-color: rgba(201,162,42,.5);
-    }
-    .equip-icon-wrap {
-      width: 60px; height: 60px; border-radius: 16px;
-      background: rgba(201,162,42,.15); display: flex;
-      align-items: center; justify-content: center;
-      font-size: 26px; color: var(--gold-light); margin-bottom: 20px;
-    }
-    .equip-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
-    .equip-subtitle { font-size: 12px; color: rgba(255,255,255,.45); margin-bottom: 16px; }
-    .equip-list li {
-      font-size: 13px; color: rgba(255,255,255,.75);
-      padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.06);
-      display: flex; align-items: center; gap: 8px;
-    }
+    #equipment .section-label::before, #equipment .section-label::after { background: var(--gold-light); }
+    #equipment h2.section-title { color: #fff; }
+    #equipment .section-desc { color: rgba(255,255,255,.65); }
+    .equip-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(255px,1fr)); gap: 20px; }
+    .equip-card { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius); padding: 28px 24px; transition: transform .3s,background .3s,border-color .3s; }
+    .equip-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.12); border-color: rgba(201,162,42,.42); }
+    .equip-icon-wrap { width: 54px; height: 54px; border-radius: 14px; background: rgba(201,162,42,.15); display: flex; align-items: center; justify-content: center; font-size: 23px; color: var(--gold-light); margin-bottom: 16px; }
+    .equip-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .equip-subtitle { font-size: 12px; color: rgba(255,255,255,.4); margin-bottom: 12px; }
+    .equip-list li { font-size: 13px; color: rgba(255,255,255,.78); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; gap: 8px; }
     .equip-list li:last-child { border-bottom: none; }
-    .equip-list li::before {
-      content: ''; width: 5px; height: 5px;
-      border-radius: 50%; background: var(--gold); flex-shrink: 0;
-    }
+    .equip-list li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold-light); flex-shrink: 0; }
 
-    /* ─── RESEARCH ─── */
-    #research { background: var(--white); }
-    .research-intro {
-      display: flex; align-items: center; gap: 20px;
-      background: linear-gradient(135deg, var(--gold-pale), #fff8e6);
-      border: 1px solid rgba(201,162,42,.3);
-      border-radius: var(--radius); padding: 20px 28px; margin-bottom: 48px;
-    }
-    .research-intro i { font-size: 32px; color: var(--gold); }
+    /* ── RESEARCH ── */
+    #research { background: #fff; }
+    .research-intro { display: flex; align-items: center; gap: 16px; background: var(--gold-pale); border: 1px solid rgba(201,162,42,.28); border-radius: var(--radius); padding: 16px 24px; margin-bottom: 40px; }
+    .research-intro i { font-size: 26px; color: var(--gold); flex-shrink: 0; }
     .research-intro-text p { color: var(--muted); font-size: 14px; }
-    .research-intro-text strong { color: var(--navy); font-size: 16px; }
-    .research-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 28px;
-    }
-    .research-card {
-      border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform .3s, box-shadow .3s;
-      background: var(--white);
-    }
+    .research-intro-text strong { color: var(--navy-dark); font-size: 15px; }
+    .research-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(340px,1fr)); gap: 24px; }
+    .research-card { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .3s,box-shadow .3s; background: #fff; }
     .research-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-    .research-img-wrap {
-      position: relative; aspect-ratio: 16/10; overflow: hidden;
-      background: var(--navy-light);
-    }
-    .research-img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .4s;
-    }
+    .research-img-wrap { position: relative; aspect-ratio: 16/10; overflow: hidden; background: var(--navy-pale); }
+    .research-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
     .research-card:hover .research-img-wrap img { transform: scale(1.04); }
-    .conf-badge {
-      position: absolute; top: 12px; left: 12px;
-      background: var(--navy);
-      color: var(--white); font-size: 11px; font-weight: 700;
-      padding: 4px 12px; border-radius: 8px;
-    }
-    .conf-badge.gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--navy-dark); }
-    .year-badge {
-      position: absolute; top: 12px; right: 12px;
-      background: rgba(255,255,255,.9); color: var(--navy);
-      font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 8px;
-    }
-    .research-body { padding: 20px; }
-    .research-conf-name {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; color: var(--gold); margin-bottom: 8px;
-    }
-    .research-title { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.45; }
-    .research-author { font-size: 12.5px; color: var(--muted); }
-    .research-author i { margin-right: 4px; }
+    .conf-badge { position: absolute; top: 10px; left: 10px; background: var(--navy-dark); color: #fff; font-size: 10.5px; font-weight: 700; padding: 3px 11px; border-radius: 8px; }
+    .conf-badge.gold { background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: #4a2e00; }
+    .year-badge { position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,.92); color: var(--navy-dark); font-size: 11px; font-weight: 800; padding: 3px 10px; border-radius: 8px; }
+    .research-body { padding: 16px 18px; }
+    .research-conf-name { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); margin-bottom: 6px; }
+    .research-title { font-size: 13.5px; font-weight: 700; color: var(--navy-dark); margin-bottom: 7px; line-height: 1.45; }
+    .research-author { font-size: 12px; color: var(--muted); }
 
-    /* ─── BENEFITS ─── */
-    #benefits { background: var(--bg); }
-    .benefits-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 22px; margin-bottom: 56px;
-    }
-    .benefit-card {
-      background: var(--white); border-radius: var(--radius);
-      padding: 28px 24px; box-shadow: var(--shadow);
-      transition: transform .25s, box-shadow .25s;
-      border-top: 3px solid transparent;
-    }
-    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-top-color: var(--gold); }
-    .benefit-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; color: var(--gold-light); margin-bottom: 18px;
-    }
-    .benefit-title { font-size: 16px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    /* ── BENEFITS ── */
+    #benefits { background: var(--navy-pale); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(272px,1fr)); gap: 18px; margin-bottom: 40px; }
+    .benefit-card { background: #fff; border-radius: var(--radius); padding: 24px 22px; box-shadow: var(--shadow); border: 1px solid var(--border); transition: transform .25s,box-shadow .25s,border-color .25s; }
+    .benefit-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+    .benefit-icon { width: 48px; height: 48px; border-radius: 13px; background: linear-gradient(135deg,var(--navy-dark),var(--navy)); display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--gold-light); margin-bottom: 14px; }
+    .benefit-title { font-size: 15px; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px; }
     .benefit-desc { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
 
-    /* ─── CONTACT ─── */
-    #contact {
-      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #1e3a8a 100%);
-      position: relative; overflow: hidden;
-    }
-    #contact .section-title { color: var(--white); }
+    /* Dormitory Gallery */
+    .dorm-section { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; margin-bottom: 24px; }
+    .dorm-header { padding: 18px 24px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
+    .dorm-header-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg,var(--navy-dark),var(--navy)); display: flex; align-items: center; justify-content: center; font-size: 17px; color: var(--gold-light); flex-shrink: 0; }
+    .dorm-header h3 { font-size: 16px; font-weight: 700; color: var(--navy-dark); }
+    .dorm-header p { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+    .dorm-gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); }
+    .dorm-photo { aspect-ratio: 4/3; overflow: hidden; position: relative; }
+    .dorm-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
+    .dorm-photo:hover img { transform: scale(1.06); }
+    @media(max-width:600px){ .dorm-gallery-grid{grid-template-columns:1fr;} }
+
+    /* Facility tags */
+    .facility-tags-row { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 20px 26px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .ft-label { font-size: 13px; font-weight: 700; color: var(--navy-dark); white-space: nowrap; }
+    .ft-tag { display: flex; align-items: center; gap: 7px; background: var(--navy-pale); border: 1px solid var(--navy-light); color: var(--navy); font-size: 13px; font-weight: 600; padding: 7px 15px; border-radius: 24px; }
+    .ft-tag i { font-size: 13px; }
+
+    /* ── CONTACT (brighter blue gradient) ── */
+    #contact { background: linear-gradient(140deg,#1e3a8a 0%,#1d4ed8 55%,#3b82f6 100%); position: relative; overflow: hidden; }
+    .contact-bg-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 65% at 82% 28%, rgba(201,162,42,.12) 0%, transparent 70%); }
     #contact .section-label { color: var(--gold-light); }
-    #contact .section-label::before,
-    #contact .section-label::after { background: var(--gold-light); }
-    .contact-bg { position: absolute; inset: 0; pointer-events: none; }
-    .contact-bg .orb-1 { position: absolute; width: 500px; height: 500px; top: -100px; right: -100px; background: radial-gradient(circle, rgba(201,162,42,.15) 0%, transparent 70%); border-radius: 50%; }
-    .contact-bg .orb-2 { position: absolute; width: 300px; height: 300px; bottom: -80px; left: -60px; background: radial-gradient(circle, rgba(201,162,42,.1) 0%, transparent 70%); border-radius: 50%; }
+    #contact .section-label::before, #contact .section-label::after { background: var(--gold-light); }
     .contact-inner { position: relative; z-index: 2; max-width: 960px; margin: 0 auto; }
-    .contact-tagline {
-      font-size: clamp(22px, 4vw, 38px); font-weight: 800; color: var(--white);
-      margin-bottom: 12px; line-height: 1.25;
-    }
+    .contact-tagline { font-size: clamp(24px,4vw,40px); font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.25; }
     .contact-tagline .gold-hl { color: var(--gold-light); }
-    .contact-sub { color: rgba(255,255,255,.70); font-size: 16px; max-width: 580px; margin-bottom: 40px; }
-    .contact-perks {
-      display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 48px;
-    }
-    .contact-perk {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      color: rgba(255,255,255,.85); font-size: 13.5px;
-      padding: 8px 16px; border-radius: 24px;
-    }
+    .contact-sub { color: rgba(255,255,255,.75); font-size: 16px; max-width: 580px; margin-bottom: 18px; line-height: 1.7; }
+
+    /* Position info box in contact */
+    .position-info-box { display: inline-flex; align-items: center; gap: 20px; flex-wrap: wrap; background: rgba(255,255,255,.1); border: 1.5px solid rgba(201,162,42,.4); border-radius: 14px; padding: 16px 24px; margin-bottom: 30px; }
+    .pi-item { display: flex; align-items: center; gap: 10px; }
+    .pi-icon { width: 36px; height: 36px; border-radius: 9px; background: linear-gradient(135deg,var(--gold),var(--gold-light)); display: flex; align-items: center; justify-content: center; font-size: 15px; color: #4a2e00; flex-shrink: 0; }
+    .pi-text strong { display: block; font-size: 15px; font-weight: 800; color: #fff; }
+    .pi-text span { font-size: 11.5px; color: rgba(255,255,255,.62); }
+    .pi-div { width: 1px; height: 30px; background: rgba(255,255,255,.2); }
+
+    .contact-perks { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .contact-perk { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: rgba(255,255,255,.9); font-size: 13px; padding: 7px 14px; border-radius: 24px; }
     .contact-perk i { color: var(--gold-light); }
-    .contact-box {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 32px; margin-bottom: 48px;
-    }
-    @media (max-width: 680px) { .contact-box { grid-template-columns: 1fr; } }
-    .contact-info-card {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: var(--radius); padding: 28px;
-    }
-    .contact-info-card h3 { color: var(--gold-light); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
-    .contact-row {
-      display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px;
-    }
-    .contact-row i { color: var(--gold-light); font-size: 16px; margin-top: 2px; }
-    .contact-row span { color: rgba(255,255,255,.85); font-size: 14px; line-height: 1.6; }
-    .qr-card {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: var(--radius); padding: 28px;
-      text-align: center;
-    }
-    .qr-card h3 { color: var(--gold-light); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
-    .qr-placeholder {
-      width: 160px; height: 160px; margin: 0 auto 16px;
-      background: rgba(255,255,255,.15);
-      border: 2px dashed rgba(201,162,42,.5);
-      border-radius: 12px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: 8px; color: rgba(255,255,255,.5); font-size: 12px; text-align: center;
-    }
-    .qr-placeholder i { font-size: 40px; color: rgba(201,162,42,.5); }
-    .qr-desc { color: rgba(255,255,255,.55); font-size: 12.5px; line-height: 1.5; }
-    .cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
-    .btn-cta-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
-      color: var(--navy-dark); font-size: 17px; font-weight: 800;
-      font-family: 'Sarabun', sans-serif;
-      padding: 16px 48px; border-radius: 14px; border: none; cursor: pointer;
-      transition: all .3s; box-shadow: 0 6px 24px rgba(201,162,42,.45);
-      display: inline-flex; align-items: center; gap: 10px;
-      text-transform: uppercase; letter-spacing: .5px;
-    }
-    .btn-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(201,162,42,.60); }
-    .btn-cta-outline {
-      background: transparent;
-      border: 1.5px solid rgba(255,255,255,.4);
-      color: var(--white); font-size: 17px; font-weight: 600;
-      font-family: 'Sarabun', sans-serif;
-      padding: 16px 32px; border-radius: 14px; cursor: pointer;
-      transition: all .25s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-cta-outline:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.8); }
+    .contact-box { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 36px; }
+    @media(max-width:680px){ .contact-box{grid-template-columns:1fr;} }
+    .contact-info-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); padding: 24px; }
+    .contact-info-card h3 { color: var(--gold-light); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+    .contact-row { display: flex; align-items: flex-start; gap: 11px; margin-bottom: 13px; }
+    .contact-row i { color: var(--gold-light); font-size: 15px; margin-top: 3px; flex-shrink: 0; }
+    .contact-row span { color: rgba(255,255,255,.88); font-size: 14px; line-height: 1.65; }
+    .contact-row span strong { display: block; color: #fff; font-size: 15px; margin-bottom: 1px; }
+    .qr-card { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: var(--radius); padding: 24px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+    .qr-card h3 { color: var(--gold-light); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; align-self: flex-start; }
+    .qr-img-wrap { width: 172px; height: 172px; background: #fff; border-radius: 14px; padding: 10px; margin: 0 auto 14px; box-shadow: 0 4px 20px rgba(0,0,0,.18); display: flex; align-items: center; justify-content: center; }
+    .qr-img-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 6px; }
+    .qr-desc { color: rgba(255,255,255,.58); font-size: 12.5px; line-height: 1.55; }
+    .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+    .btn-cta-primary { background: linear-gradient(135deg,var(--gold),var(--gold-light)); color: #4a2e00; font-size: 16px; font-weight: 800; font-family: 'Sarabun', sans-serif; padding: 16px 42px; border-radius: 14px; border: none; cursor: pointer; transition: all .3s; box-shadow: 0 6px 24px rgba(201,162,42,.38); display: inline-flex; align-items: center; gap: 10px; }
+    .btn-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(201,162,42,.52); }
+    .btn-cta-outline { background: rgba(255,255,255,.12); border: 1.5px solid rgba(255,255,255,.32); color: #fff; font-size: 16px; font-weight: 600; font-family: 'Sarabun', sans-serif; padding: 16px 28px; border-radius: 14px; cursor: pointer; transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-cta-outline:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.7); }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: var(--navy-dark);
-      border-top: 1px solid rgba(201,162,42,.2);
-      padding: 28px 24px;
-      text-align: center;
-    }
-    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    /* ── FOOTER ── */
+    footer { background: #0f2460; border-top: 1px solid rgba(255,255,255,.1); padding: 24px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .footer-brand { display: flex; align-items: center; gap: 10px; }
-    .footer-brand img { width: 32px; height: 32px; object-fit: contain; border-radius: 50%; }
-    .footer-brand span { color: rgba(255,255,255,.6); font-size: 13px; }
+    .footer-brand img { width: 30px; height: 30px; object-fit: contain; border-radius: 50%; }
+    .footer-brand span { color: rgba(255,255,255,.52); font-size: 12.5px; }
     .footer-brand span strong { color: var(--gold-light); }
-    .footer-copy { color: rgba(255,255,255,.35); font-size: 12px; }
+    .footer-copy { color: rgba(255,255,255,.28); font-size: 11.5px; }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      nav { padding: 0 16px; }
-      .nav-links { display: none; }
-      .faculty-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
-      section { padding: 72px 16px; }
-      .hero-stats { gap: 24px; }
-      .research-grid { grid-template-columns: 1fr; }
-    }
+    /* ── Responsive ── */
+    @media(max-width:768px){ nav{padding:0 16px;} .nav-links{display:none;} .faculty-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;} section{padding:72px 16px;} .research-grid{grid-template-columns:1fr;} .position-banner{gap:14px;} .pos-divider{display:none;} }
 
-    /* ─── ANIMATIONS ─── */
-    .fade-in {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .6s ease, transform .6s ease;
-    }
+    /* ── Animations ── */
+    .fade-in { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    /* ─── SECTION DIVIDER WAVE ─── */
-    .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
-    .wave-divider svg { display: block; }
   </style>
 </head>
-
 <body>
 
-<!-- ══════════════════════════════════════════
-     NAVBAR
-══════════════════════════════════════════ -->
-<nav>
+<!-- NAVBAR -->
+<nav id="mainNav">
   <div class="nav-logo">
-    <img src="https://lh3.googleusercontent.com/d/1k6L4Doe6l9z5atInseU8IWqQa_zItihv" alt="PMK PCCM Logo" />
+    <img src="https://lh3.googleusercontent.com/d/1k6L4Doe6l9z5atInseU8IWqQa_zItihv" alt="PMK PCCM" />
     <div class="nav-logo-text">
-      <span>PMK PCCM</span><br/>
-      <span style="font-size:11px;font-weight:400;color:rgba(255,255,255,.5);">
+      PMK PCCM<br/>
+      <span class="sub">
         <span class="lang-th-inline">โรงพยาบาลพระมงกุฎเกล้า</span>
         <span class="lang-en-inline">Phramongkutklao Hospital</span>
       </span>
     </div>
   </div>
   <div class="nav-links">
-    <a href="#faculty">
-      <span class="lang-th-inline">คณาจารย์</span>
-      <span class="lang-en-inline">Faculty</span>
-    </a>
-    <a href="#academic">
-      <span class="lang-th-inline">กิจกรรมวิชาการ</span>
-      <span class="lang-en-inline">Academics</span>
-    </a>
-    <a href="#equipment">
-      <span class="lang-th-inline">อุปกรณ์</span>
-      <span class="lang-en-inline">Equipment</span>
-    </a>
-    <a href="#research">
-      <span class="lang-th-inline">งานวิจัย</span>
-      <span class="lang-en-inline">Research</span>
-    </a>
-    <a href="#benefits">
-      <span class="lang-th-inline">สวัสดิการ</span>
-      <span class="lang-en-inline">Benefits</span>
-    </a>
-    <a href="#contact">
-      <span class="lang-th-inline">ติดต่อ</span>
-      <span class="lang-en-inline">Contact</span>
-    </a>
+    <a href="#faculty"><span class="lang-th-inline">คณาจารย์</span><span class="lang-en-inline">Faculty</span></a>
+    <a href="#academic"><span class="lang-th-inline">กิจกรรมวิชาการ</span><span class="lang-en-inline">Academics</span></a>
+    <a href="#equipment"><span class="lang-th-inline">อุปกรณ์</span><span class="lang-en-inline">Equipment</span></a>
+    <a href="#research"><span class="lang-th-inline">งานวิจัย</span><span class="lang-en-inline">Research</span></a>
+    <a href="#benefits"><span class="lang-th-inline">สวัสดิการ</span><span class="lang-en-inline">Benefits</span></a>
+    <a href="#contact"><span class="lang-th-inline">ติดต่อ</span><span class="lang-en-inline">Contact</span></a>
   </div>
   <div class="nav-right">
     <button class="lang-btn" onclick="toggleLang()" id="langToggle">EN</button>
     <button class="apply-nav-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-      <span class="lang-th-inline">สมัคร Fellowship</span>
-      <span class="lang-en-inline">Apply Now</span>
+      <span class="lang-th-inline">สมัคร Fellowship</span><span class="lang-en-inline">Apply Now</span>
     </button>
   </div>
 </nav>
 
-
-<!-- ══════════════════════════════════════════
-     HERO
-══════════════════════════════════════════ -->
+<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg-orbs">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-  <div class="hero-grid"></div>
+  <div class="hero-glow"></div><div class="hero-grid"></div>
+  <div class="hero-orb hero-orb-1"></div><div class="hero-orb hero-orb-2"></div>
   <div class="hero-content">
-    <div class="hero-badge">
-      <i class="fa-solid fa-star"></i>
-      <span class="lang-th-inline">เปิดรับสมัครแพทย์ประจำบ้านต่อยอด</span>
-      <span class="lang-en-inline">Now Accepting Fellowship Applications</span>
-    </div>
+    <div class="hero-badge"><i class="fa-solid fa-star-of-life"></i> <span class="lang-th-inline">เปิดรับสมัครแพทย์ประจำบ้านต่อยอด</span><span class="lang-en-inline">Fellowship Applications Open</span></div>
     <img class="hero-logo" src="https://lh3.googleusercontent.com/d/1k6L4Doe6l9z5atInseU8IWqQa_zItihv" alt="PMK PCCM" />
     <h1 class="hero-title">
-      <span class="lang-th-inline">
-        แผนกอายุรกรรมโรคปอด<br/>
-        <span class="gold-text">และเวชบำบัดวิกฤต</span>
-      </span>
-      <span class="lang-en-inline">
-        Division of Pulmonary and<br/>
-        <span class="gold-text">Critical Care Medicine</span>
-      </span>
+      <span class="lang-th-inline">แผนกอายุรกรรมโรคปอด<br/><span class="gold-text">และเวชบำบัดวิกฤต</span></span>
+      <span class="lang-en-inline">Division of Pulmonary and<br/><span class="gold-text">Critical Care Medicine</span></span>
     </h1>
-    <p class="hero-subtitle">
-      <span class="lang-th-inline">
-        กองอายุรกรรม โรงพยาบาลพระมงกุฎเกล้า
-      </span>
-      <span class="lang-en-inline">
-        Department of Internal Medicine
-      </span>
-    </p>
-    <div class="hero-hospital">
-      <i class="fa-solid fa-hospital"></i>
-      <span class="lang-th-inline">โรงพยาบาลพระมงกุฎเกล้า กรุงเทพมหานคร</span>
-      <span class="lang-en-inline">Phramongkutklao Hospital, Bangkok, Thailand</span>
+    <p class="hero-subtitle"><span class="lang-th-inline">กองอายุรกรรม โรงพยาบาลพระมงกุฎเกล้า กรุงเทพมหานคร</span><span class="lang-en-inline">Department of Internal Medicine · Phramongkutklao Hospital · Bangkok</span></p>
+    <div class="hero-hospital"><i class="fa-solid fa-hospital"></i> <span class="lang-th-inline">โรงพยาบาลพระมงกุฎเกล้า</span><span class="lang-en-inline">Phramongkutklao Hospital</span></div>
+
+    <!-- Position Banner -->
+    <div class="position-banner">
+      <div class="pos-item">
+        <div class="pos-num">3</div>
+        <div class="pos-label">
+          <span class="lang-th-inline">ตำแหน่งรับสมัคร</span><span class="lang-en-inline">Open Positions</span>
+          <small><span class="lang-th-inline">ประจำปีการศึกษา</span><span class="lang-en-inline">per academic year</span></small>
+        </div>
+      </div>
+      <div class="pos-divider"></div>
+      <div class="pos-item">
+        <i class="fa-solid fa-building-columns" style="color:var(--gold-light);font-size:18px;flex-shrink:0"></i>
+        <div class="pos-label">
+          <span class="lang-th-inline">ประเภทมีต้นสังกัด</span><span class="lang-en-inline">Sponsored (Affiliated)</span>
+          <small><span class="lang-th-inline">รับบุคลากรจากหน่วยงานต้นสังกัด</span><span class="lang-en-inline">From affiliated institutions</span></small>
+        </div>
+      </div>
+      <div class="pos-divider"></div>
+      <div class="pos-item">
+        <i class="fa-solid fa-user" style="color:var(--gold-light);font-size:18px;flex-shrink:0"></i>
+        <div class="pos-label">
+          <span class="lang-th-inline">ประเภทอิสระ</span><span class="lang-en-inline">Independent</span>
+          <small><span class="lang-th-inline">รับสมัครบุคคลทั่วไป</span><span class="lang-en-inline">Open to all applicants</span></small>
+        </div>
+      </div>
     </div>
+
     <div class="hero-stats">
-      <div class="stat-item">
-        <div class="stat-num">9</div>
-        <div class="stat-label lang-th-inline">ผู้เชี่ยวชาญ</div>
-        <div class="stat-label lang-en-inline">Expert Faculty</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">4+</div>
-        <div class="stat-label lang-th-inline">ห้องปฏิบัติการเฉพาะทาง</div>
-        <div class="stat-label lang-en-inline">Specialized Labs</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">6+</div>
-        <div class="stat-label lang-th-inline">งานวิจัยสู่เวทีนานาชาติ</div>
-        <div class="stat-label lang-en-inline">International Presentations</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">7</div>
-        <div class="stat-label lang-th-inline">กิจกรรมวิชาการ/สัปดาห์</div>
-        <div class="stat-label lang-en-inline">Academic Sessions/Week</div>
-      </div>
+      <div class="stat-item"><div class="stat-num">9</div><div class="stat-label"><span class="lang-th-inline">ผู้เชี่ยวชาญ</span><span class="lang-en-inline">Expert Faculty</span></div></div>
+      <div class="stat-item"><div class="stat-num">4+</div><div class="stat-label"><span class="lang-th-inline">ห้องเฉพาะทาง</span><span class="lang-en-inline">Specialized Labs</span></div></div>
+      <div class="stat-item"><div class="stat-num">6+</div><div class="stat-label"><span class="lang-th-inline">งานวิจัยนานาชาติ</span><span class="lang-en-inline">Int'l Presentations</span></div></div>
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label"><span class="lang-th-inline">ตำแหน่งรับสมัคร</span><span class="lang-en-inline">Open Positions</span></div></div>
     </div>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('faculty').scrollIntoView({behavior:'smooth'})">
-        <i class="fa-solid fa-user-doctor"></i>
-        <span class="lang-th-inline">ดูรายละเอียดโครงการ</span>
-        <span class="lang-en-inline">Explore Program</span>
-      </button>
-      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-        <i class="fa-solid fa-paper-plane"></i>
-        <span class="lang-th-inline">สมัครเลย</span>
-        <span class="lang-en-inline">Apply Now</span>
-      </button>
+      <button class="btn-primary" onclick="document.getElementById('faculty').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-user-doctor"></i> <span class="lang-th-inline">ดูรายละเอียดโครงการ</span><span class="lang-en-inline">Explore Program</span></button>
+      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-paper-plane"></i> <span class="lang-th-inline">สมัครเลย</span><span class="lang-en-inline">Apply Now</span></button>
     </div>
   </div>
-  <div class="scroll-hint">
-    <span class="lang-th-inline">เลื่อนลงเพื่อดูข้อมูล</span>
-    <span class="lang-en-inline">Scroll to explore</span>
-    <i class="fa-solid fa-chevron-down"></i>
-  </div>
+  <div class="scroll-hint"><span class="lang-th-inline">เลื่อนลงดูข้อมูล</span><span class="lang-en-inline">Scroll to explore</span><i class="fa-solid fa-chevron-down"></i></div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     FACULTY
-══════════════════════════════════════════ -->
+<!-- FACULTY -->
 <section id="faculty">
   <div class="section-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">ทีมผู้เชี่ยวชาญ</span>
-      <span class="lang-en-inline">Our Expert Team</span>
-    </div>
-    <h2 class="section-title">
-      <span class="lang-th-inline">คณาจารย์ผู้เชี่ยวชาญ</span>
-      <span class="lang-en-inline">Expert Faculty</span>
-    </h2>
+    <div class="section-label"><span class="lang-th-inline">ทีมผู้เชี่ยวชาญ</span><span class="lang-en-inline">Expert Team</span></div>
+    <h2 class="section-title"><span class="lang-th-inline">คณาจารย์ผู้เชี่ยวชาญ</span><span class="lang-en-inline">Expert Faculty</span></h2>
     <div class="divider"></div>
-    <p class="section-desc">
-      <span class="lang-th-inline">
-        คณาจารย์ 9 ท่าน ที่มีประสบการณ์ระดับประเทศและนานาชาติ ครอบคลุมทุกด้านของโรคปอดและเวชบำบัดวิกฤต
-      </span>
-      <span class="lang-en-inline">
-        A team of 9 faculty members with national and international expertise, covering all aspects of pulmonary and critical care medicine.
-      </span>
-    </p>
+    <p class="section-desc"><span class="lang-th-inline">คณาจารย์ 9 ท่าน ประสบการณ์ระดับประเทศและนานาชาติ ครอบคลุมทุกด้านของโรคปอดและเวชบำบัดวิกฤต</span><span class="lang-en-inline">9 faculty members with national and international expertise covering all aspects of pulmonary and critical care medicine.</span></p>
     <p class="hover-hint"><i class="fa-solid fa-hand-pointer"></i> <span class="lang-th-inline">วางเมาส์บนรูปเพื่อดูรายละเอียดเพิ่มเติม</span><span class="lang-en-inline">Hover over photo for full credentials</span></p>
 
-    <!-- Senior Consultants -->
-    <div class="faculty-group-label">
-      <span class="lang-th-inline"><span>อาจารย์ที่ปรึกษาอาวุโส</span> · Senior Consultants</span>
-      <span class="lang-en-inline">Senior Consultants · <span>อาจารย์ที่ปรึกษาอาวุโส</span></span>
-    </div>
+    <div class="group-label"><span class="lang-th-inline"><span>อาจารย์ที่ปรึกษาอาวุโส</span> · Senior Consultants</span><span class="lang-en-inline">Senior Consultants · <span>อาจารย์ที่ปรึกษาอาวุโส</span></span></div>
     <div class="faculty-grid">
-
-      <!-- อดิศร -->
       <div class="faculty-card senior fade-in">
         <div class="senior-badge">Senior</div>
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1EbwQzn7KJFfxqwiTyLuK5mAfx0a8A7nf" alt="พล.ท. อดิศร วงษา" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · FCCP · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · อ.ว.เวชบำบัดวิกฤติ<br/>
-              Diplomate, American Board of Internal Medicine & Subspecialty Board of Pulmonary Medicine and CCM
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · FCCP · Board-certified Internal Medicine · Pulmonary Medicine · Critical Care Medicine<br/>
-              Diplomate, American Board of Internal Medicine &amp; Pulmonary/Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">อดีตนายกสมาคมอุรเวชช์และเวชบำบัดวิกฤต</span>
-              <span class="lang-en-inline">Former President, Thai Society of Chest &amp; Critical Care Medicine</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พล.ท. อดิศร วงษา</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · LTG</span>
-            <span class="lang-en-inline">LTG Adisorn Wongsa</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag gold-tag">FCCP</span>
-          </div>
-        </div>
+        <div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1EbwQzn7KJFfxqwiTyLuK5mAfx0a8A7nf" alt="พล.ท. อดิศร วงษา" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · FCCP · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · อ.ว.เวชบำบัดวิกฤติ<br/>Diplomate, American Board of Internal Medicine &amp; Subspecialty Board of Pulmonary Medicine &amp; CCM</div><div class="overlay-edu lang-en-block">M.D. · FCCP · Internal Medicine · Pulmonary Medicine · Critical Care<br/>Diplomate, American Board of Internal Medicine &amp; Pulmonary/CCM</div><div class="overlay-int"><span class="lang-th-inline">อดีตนายกสมาคมอุรเวชช์และเวชบำบัดวิกฤต</span><span class="lang-en-inline">Former President, Thai Society of Chest &amp; Critical Care Medicine</span></div></div></div>
+        <div class="faculty-info"><div class="faculty-name">พล.ท. อดิศร วงษา</div><div class="faculty-rank"><span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · LTG</span><span class="lang-en-inline">LTG Adisorn Wongsa</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag gold-tag">FCCP</span></div></div>
       </div>
-
-      <!-- อนันต์ -->
       <div class="faculty-card senior fade-in">
         <div class="senior-badge">Senior</div>
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1nMrtsH9yWrle9edwkDC_V9u5gZfQMeIH" alt="พล.ท. อนันต์ วัฒนธรรม" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ<br/>
-              ป.หัตถการทรวงอกและหลอดลม
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care<br/>
-              Certificate in Interventional Pulmonology
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">ประธาน Assembly of Interventional Pulmonology · ปรมาจารย์ด้าน IP</span>
-              <span class="lang-en-inline">Chair, Assembly of Interventional Pulmonology · Pioneer of IP in Thailand</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พล.ท. อนันต์ วัฒนธรรม</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · LTG</span>
-            <span class="lang-en-inline">LTG Anan Wattanathum</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag gold-tag">IP</span>
-          </div>
-        </div>
+        <div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1nMrtsH9yWrle9edwkDC_V9u5gZfQMeIH" alt="พล.ท. อนันต์ วัฒนธรรม" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ · ป.หัตถการทรวงอกและหลอดลม</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care · Certificate in Interventional Pulmonology</div><div class="overlay-int"><span class="lang-th-inline">ประธาน Assembly of Interventional Pulmonology · ปรมาจารย์ด้าน IP</span><span class="lang-en-inline">Chair, Assembly of Interventional Pulmonology · Pioneer of IP in Thailand</span></div></div></div>
+        <div class="faculty-info"><div class="faculty-name">พล.ท. อนันต์ วัฒนธรรม</div><div class="faculty-rank"><span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · LTG</span><span class="lang-en-inline">LTG Anan Wattanathum</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag gold-tag">IP</span></div></div>
       </div>
-
-      <!-- ครรชิต -->
       <div class="faculty-card senior fade-in">
         <div class="senior-badge">Senior</div>
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1Ih18zVy2DKCzJsi2k0lPclGSx7DL9BCP" alt="พ.อ. ครรชิต ปิยะเวชวิรัตน์" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">อดีตนายกสมาคมเวชบำบัดวิกฤต · ปรมาจารย์ด้าน Critical Care</span>
-              <span class="lang-en-inline">Former President, Thai Society of Critical Care Medicine</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.อ. ครรชิต ปิยะเวชวิรัตน์</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · COL</span>
-            <span class="lang-en-inline">COL Kanchit Piyawechwirut</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-          </div>
-        </div>
+        <div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1Ih18zVy2DKCzJsi2k0lPclGSx7DL9BCP" alt="พ.อ. ครรชิต ปิยะเวชวิรัตน์" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine</div><div class="overlay-int"><span class="lang-th-inline">อดีตนายกสมาคมเวชบำบัดวิกฤต</span><span class="lang-en-inline">Former President, Thai Society of Critical Care Medicine</span></div></div></div>
+        <div class="faculty-info"><div class="faculty-name">พ.อ. ครรชิต ปิยะเวชวิรัตน์</div><div class="faculty-rank"><span class="lang-th-inline">อาจารย์ที่ปรึกษาอาวุโส · COL</span><span class="lang-en-inline">COL Kanchit Piyawechwirut</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span></div></div>
       </div>
-
-    </div><!-- /senior grid -->
-
-    <!-- Department Faculty -->
-    <div class="faculty-group-label" style="margin-top:12px;">
-      <span class="lang-th-inline"><span>อาจารย์ประจำแผนก</span> · Department Faculty</span>
-      <span class="lang-en-inline">Department Faculty · <span>อาจารย์ประจำแผนก</span></span>
     </div>
+
+    <div class="group-label" style="margin-top:8px"><span class="lang-th-inline"><span>อาจารย์ประจำแผนก</span> · Department Faculty</span><span class="lang-en-inline">Department Faculty · <span>อาจารย์ประจำแผนก</span></span></div>
     <div class="faculty-grid">
-
-      <!-- อมรชัย -->
-      <div class="faculty-card fade-in">
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1W8jRh8KfeDjozK8meaDZmmS5Wph131JX" alt="พ.อ. อมรชัย เลิศอมรพงษ์" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">ความสนใจพิเศษ: Tuberculosis &amp; Respiratory Infections</span>
-              <span class="lang-en-inline">Special interest: Tuberculosis &amp; Respiratory Infections</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.อ. อมรชัย เลิศอมรพงษ์</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">COL · อาจารย์ประจำ</span>
-            <span class="lang-en-inline">COL Amornchai Leetamornpong</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag">TB</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- พรประภา -->
-      <div class="faculty-card fade-in">
-        <div class="head-badge lang-th-inline">หัวหน้า</div>
-        <div class="head-badge lang-en-inline" style="display:none">Head</div>
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1rd_se5Hu_feRIaE7fHOQ77VSXWHikuKX" alt="พ.ท.หญิง พรประภา จินดามพร" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · อว.อายุรศาสตร์การนอนหลับ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Sleep Medicine
-            </div>
-            <div class="overlay-int">
-              Certificate of Research Fellowship in Sleep Disorders Center,<br/>Cleveland Clinic Foundation, Ohio, USA
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.ท.หญิง พรประภา จินดามพร</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">LTC · หัวหน้าแผนก</span>
-            <span class="lang-en-inline">LTC Pornprapa Jindamporn · Division Head</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag gold-tag">Sleep Medicine</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ดุจรัตน์ -->
-      <div class="faculty-card fade-in">
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1yAs2S2IjQbke53x_i3yPgz6A6OM6gn7G" alt="พ.ท. ดุจรัตน์ สมบูรณ์วิบูลย์" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              Certificate, Respiratory Clinical Fellow in ILD<br/>McMaster University, Hamilton, Ontario, Canada
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.ท. ดุจรัตน์ สมบูรณ์วิบูลย์</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">LTC · อาจารย์ประจำ</span>
-            <span class="lang-en-inline">LTC Dujrat Somboonwiboon</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag gold-tag">ILD</span>
-            <span class="tag">ECMO</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- พัฒนพล -->
-      <div class="faculty-card fade-in">
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1H85aVIcrp8La9ACrQQX7yQrIiRVoSonD" alt="นพ. พัฒนพล อร่ามอารีรักษ์" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              Clinical Visiting Fellowship in Asthma &amp; Eosinophilic Lung Diseases<br/>Guy's Severe Asthma Centre, King's College London, UK
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">นพ. พัฒนพล อร่ามอารีรักษ์</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">Dr. · อาจารย์ประจำ</span>
-            <span class="lang-en-inline">Dr. Pattanapol Aramareeluck</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag gold-tag">Airway</span>
-            <span class="tag">ECMO</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- วิทยา -->
-      <div class="faculty-card fade-in">
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1jLlCA103ZhsRpTTcfCHYGicvGEJngqhD" alt="พ.ต. วิทยา ทองเทพารักษ์" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">ความสนใจพิเศษ: ECMO &amp; Advanced Critical Care</span>
-              <span class="lang-en-inline">Special interest: ECMO &amp; Advanced Critical Care</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.ต. วิทยา ทองเทพารักษ์</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">MAJ · อาจารย์ประจำ</span>
-            <span class="lang-en-inline">MAJ Witthaya Thongteparak</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag">Critical Care</span>
-            <span class="tag gold-tag">ECMO</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- จาตุรนต์ -->
-      <div class="faculty-card fade-in">
-        <div class="faculty-photo-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1hTcrCvuQJd79DLKWD6cYLApwSHRyr6yC" alt="พ.ต. จาตุรนต์ ภูเวียง" loading="lazy" />
-          <div class="faculty-overlay">
-            <div class="overlay-edu lang-th-block">
-              พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ<br/>
-              ป.หัตถการทรวงอกและหลอดลม
-            </div>
-            <div class="overlay-edu lang-en-block">
-              M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine<br/>
-              Certificate in Interventional Pulmonology
-            </div>
-            <div class="overlay-int">
-              <span class="lang-th-inline">งานวิจัย: R-EBUS Cryobiopsy · นำเสนอ ERS Congress 2025</span>
-              <span class="lang-en-inline">Research: R-EBUS Cryobiopsy · Presented at ERS Congress 2025</span>
-            </div>
-          </div>
-        </div>
-        <div class="faculty-info">
-          <div class="faculty-name">พ.ต. จาตุรนต์ ภูเวียง</div>
-          <div class="faculty-rank">
-            <span class="lang-th-inline">MAJ · อาจารย์ประจำ</span>
-            <span class="lang-en-inline">MAJ Jaturon Poovieng</span>
-          </div>
-          <div class="specialty-tags">
-            <span class="tag">Chest</span>
-            <span class="tag gold-tag">IP</span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /dept grid -->
+      <div class="faculty-card fade-in"><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1W8jRh8KfeDjozK8meaDZmmS5Wph131JX" alt="พ.อ. อมรชัย" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine</div><div class="overlay-int"><span class="lang-th-inline">ความสนใจพิเศษ: Tuberculosis &amp; Respiratory Infections</span><span class="lang-en-inline">Special interest: Tuberculosis &amp; Respiratory Infections</span></div></div></div><div class="faculty-info"><div class="faculty-name">พ.อ. อมรชัย เลิศอมรพงษ์</div><div class="faculty-rank"><span class="lang-th-inline">COL · อาจารย์ประจำ</span><span class="lang-en-inline">COL Amornchai Leetamornpong</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag">TB</span></div></div></div>
+      <div class="faculty-card fade-in"><div class="head-badge"><span class="lang-th-inline">หัวหน้า</span><span class="lang-en-inline">Head</span></div><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1rd_se5Hu_feRIaE7fHOQ77VSXWHikuKX" alt="พ.ท.หญิง พรประภา" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · อว.อายุรศาสตร์การนอนหลับ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Sleep Medicine</div><div class="overlay-int">Certificate of Research Fellowship in Sleep Disorders Center,<br/>Cleveland Clinic Foundation, Ohio, USA</div></div></div><div class="faculty-info"><div class="faculty-name">พ.ท.หญิง พรประภา จินดามพร</div><div class="faculty-rank"><span class="lang-th-inline">LTC · หัวหน้าแผนก</span><span class="lang-en-inline">LTC Pornprapa Jindamporn · Head</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag gold-tag">Sleep</span></div></div></div>
+      <div class="faculty-card fade-in"><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1yAs2S2IjQbke53x_i3yPgz6A6OM6gn7G" alt="พ.ท. ดุจรัตน์" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine</div><div class="overlay-int">Certificate, Respiratory Clinical Fellow in ILD<br/>McMaster University, Hamilton, Ontario, Canada</div></div></div><div class="faculty-info"><div class="faculty-name">พ.ท. ดุจรัตน์ สมบูรณ์วิบูลย์</div><div class="faculty-rank"><span class="lang-th-inline">LTC · อาจารย์ประจำ</span><span class="lang-en-inline">LTC Dujrat Somboonwiboon</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag gold-tag">ILD</span><span class="tag">ECMO</span></div></div></div>
+      <div class="faculty-card fade-in"><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1H85aVIcrp8La9ACrQQX7yQrIiRVoSonD" alt="นพ. พัฒนพล" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine</div><div class="overlay-int">Clinical Visiting Fellowship in Asthma &amp; Eosinophilic Lung Diseases<br/>Guy's Severe Asthma Centre, King's College London, UK</div></div></div><div class="faculty-info"><div class="faculty-name">นพ. พัฒนพล อร่ามอารีรักษ์</div><div class="faculty-rank"><span class="lang-th-inline">Dr. · อาจารย์ประจำ</span><span class="lang-en-inline">Dr. Pattanapol Aramareeluck</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag gold-tag">Airway</span><span class="tag">ECMO</span></div></div></div>
+      <div class="faculty-card fade-in"><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1jLlCA103ZhsRpTTcfCHYGicvGEJngqhD" alt="พ.ต. วิทยา" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care Medicine</div><div class="overlay-int"><span class="lang-th-inline">ความสนใจพิเศษ: ECMO &amp; Advanced Critical Care</span><span class="lang-en-inline">Special interest: ECMO &amp; Advanced Critical Care</span></div></div></div><div class="faculty-info"><div class="faculty-name">พ.ต. วิทยา ทองเทพารักษ์</div><div class="faculty-rank"><span class="lang-th-inline">MAJ · อาจารย์ประจำ</span><span class="lang-en-inline">MAJ Witthaya Thongteparak</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag">Critical Care</span><span class="tag gold-tag">ECMO</span></div></div></div>
+      <div class="faculty-card fade-in"><div class="faculty-photo-wrap"><img src="https://lh3.googleusercontent.com/d/1hTcrCvuQJd79DLKWD6cYLApwSHRyr6yC" alt="พ.ต. จาตุรนต์" loading="lazy"/><div class="faculty-overlay"><div class="overlay-edu lang-th-block">พ.บ. · ว.ว.อายุรศาสตร์ · ว.ว.โรคปอด · ว.ว.เวชบำบัดวิกฤติ · ป.หัตถการทรวงอกและหลอดลม</div><div class="overlay-edu lang-en-block">M.D. · Internal Medicine · Pulmonary Medicine · Critical Care · Certificate in Interventional Pulmonology</div><div class="overlay-int"><span class="lang-th-inline">งานวิจัย R-EBUS Cryobiopsy · นำเสนอ ERS Congress 2025</span><span class="lang-en-inline">Research: R-EBUS Cryobiopsy · ERS Congress 2025</span></div></div></div><div class="faculty-info"><div class="faculty-name">พ.ต. จาตุรนต์ ภูเวียง</div><div class="faculty-rank"><span class="lang-th-inline">MAJ · อาจารย์ประจำ</span><span class="lang-en-inline">MAJ Jaturon Poovieng</span></div><div class="specialty-tags"><span class="tag">Chest</span><span class="tag gold-tag">IP</span></div></div></div>
+    </div>
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     ACADEMIC ACTIVITIES
-══════════════════════════════════════════ -->
+<!-- ACADEMIC -->
 <section id="academic">
   <div class="section-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">การเรียนการสอน</span>
-      <span class="lang-en-inline">Learning &amp; Teaching</span>
-    </div>
-    <h2 class="section-title">
-      <span class="lang-th-inline">กิจกรรมวิชาการ</span>
-      <span class="lang-en-inline">Academic Activities</span>
-    </h2>
+    <div class="section-label"><span class="lang-th-inline">การเรียนการสอน</span><span class="lang-en-inline">Learning &amp; Teaching</span></div>
+    <h2 class="section-title"><span class="lang-th-inline">กิจกรรมวิชาการ</span><span class="lang-en-inline">Academic Activities</span></h2>
     <div class="divider"></div>
-    <p class="section-desc">
-      <span class="lang-th-inline">
-        กิจกรรมวิชาการที่หลากหลายและสม่ำเสมอ ทั้ง conference, journal club และ OPD sub-specialty ทุกสัปดาห์
-      </span>
-      <span class="lang-en-inline">
-        Diverse and regular academic activities including conferences, journal clubs, and weekly sub-specialty OPD clinics.
-      </span>
-    </p>
-
-    <!-- Weekly Schedule -->
-    <div style="margin-bottom:12px;">
-      <div class="faculty-group-label">
-        <span class="lang-th-inline"><span>กิจกรรมประจำสัปดาห์</span> · Weekly Academic Sessions</span>
-        <span class="lang-en-inline">Weekly Academic Sessions · <span>กิจกรรมประจำสัปดาห์</span></span>
-      </div>
-    </div>
+    <p class="section-desc"><span class="lang-th-inline">กิจกรรมวิชาการหลากหลายและสม่ำเสมอ ทั้ง conference, journal club และ OPD sub-specialty ทุกสัปดาห์</span><span class="lang-en-inline">Diverse and regular academic activities including conferences, journal clubs, and weekly sub-specialty OPD clinics.</span></p>
+    <div class="group-label"><span class="lang-th-inline"><span>กิจกรรมประจำสัปดาห์</span> · Weekly Sessions</span><span class="lang-en-inline">Weekly Academic Sessions</span></div>
     <div class="schedule-grid">
-      <div class="schedule-card fade-in">
-        <div class="sched-day lang-th-inline"><i class="fa-solid fa-calendar-day"></i> จันทร์ · Monday</div>
-        <div class="sched-day lang-en-inline"><i class="fa-solid fa-calendar-day"></i> Monday</div>
-        <div class="sched-title lang-th-inline">Chest X-ray Conference</div>
-        <div class="sched-title lang-en-inline">Chest X-ray Conference</div>
-        <div class="sched-sub lang-th-inline">วิเคราะห์ภาพรังสีทรวงอก</div>
-        <div class="sched-sub lang-en-inline">Chest imaging interpretation &amp; discussion</div>
-        <div class="sched-time"><i class="fa-solid fa-clock"></i> 12:30 – 13:00</div>
-      </div>
-      <div class="schedule-card fade-in">
-        <div class="sched-day lang-th-inline"><i class="fa-solid fa-calendar-day"></i> จันทร์ · Monday</div>
-        <div class="sched-day lang-en-inline"><i class="fa-solid fa-calendar-day"></i> Monday</div>
-        <div class="sched-title">Critical Care Conference</div>
-        <div class="sched-sub lang-th-inline">Wood Critical Care Physiology</div>
-        <div class="sched-sub lang-en-inline">Wood Critical Care Physiology</div>
-        <div class="sched-time"><i class="fa-solid fa-clock"></i> 14:00 – 15:00</div>
-      </div>
-      <div class="schedule-card fade-in">
-        <div class="sched-day lang-th-inline"><i class="fa-solid fa-calendar-day"></i> พุธ · Wednesday</div>
-        <div class="sched-day lang-en-inline"><i class="fa-solid fa-calendar-day"></i> Wednesday</div>
-        <div class="sched-title">Chest Conference</div>
-        <div class="sched-sub lang-th-inline">West Pulmonary Physiology</div>
-        <div class="sched-sub lang-en-inline">West Pulmonary Physiology</div>
-        <div class="sched-time"><i class="fa-solid fa-clock"></i> 14:00 – 15:00</div>
-      </div>
-      <div class="schedule-card gold-border fade-in">
-        <div class="sched-day lang-th-inline" style="color:var(--gold)"><i class="fa-solid fa-calendar-day"></i> ศุกร์ · Friday</div>
-        <div class="sched-day lang-en-inline" style="color:var(--gold)"><i class="fa-solid fa-calendar-day"></i> Friday</div>
-        <div class="sched-title">Journal Club</div>
-        <div class="sched-sub lang-th-inline">นำเสนอและวิจารณ์บทความวิชาการ</div>
-        <div class="sched-sub lang-en-inline">Critical appraisal of current literature</div>
-        <div class="sched-time"><i class="fa-solid fa-clock"></i> <span class="lang-th-inline">ทุกวันศุกร์</span><span class="lang-en-inline">Every Friday</span></div>
-      </div>
+      <div class="schedule-card fade-in"><div class="sched-day"><i class="fa-solid fa-calendar-day"></i> <span class="lang-th-inline">จันทร์ · Monday</span><span class="lang-en-inline">Monday</span></div><div class="sched-title">Chest X-ray Conference</div><div class="sched-sub lang-th-inline">วิเคราะห์ภาพรังสีทรวงอก</div><div class="sched-sub lang-en-inline">Chest imaging interpretation &amp; discussion</div><div class="sched-time"><i class="fa-solid fa-clock"></i> 12:30–13:00</div></div>
+      <div class="schedule-card fade-in"><div class="sched-day"><i class="fa-solid fa-calendar-day"></i> <span class="lang-th-inline">จันทร์ · Monday</span><span class="lang-en-inline">Monday</span></div><div class="sched-title">Critical Care Conference</div><div class="sched-sub">Wood Critical Care Physiology</div><div class="sched-time"><i class="fa-solid fa-clock"></i> 14:00–15:00</div></div>
+      <div class="schedule-card fade-in"><div class="sched-day"><i class="fa-solid fa-calendar-day"></i> <span class="lang-th-inline">พุธ · Wednesday</span><span class="lang-en-inline">Wednesday</span></div><div class="sched-title">Chest Conference</div><div class="sched-sub">West Pulmonary Physiology</div><div class="sched-time"><i class="fa-solid fa-clock"></i> 14:00–15:00</div></div>
+      <div class="schedule-card gold-border fade-in"><div class="sched-day"><i class="fa-solid fa-calendar-day"></i> <span class="lang-th-inline">ศุกร์ · Friday</span><span class="lang-en-inline">Friday</span></div><div class="sched-title">Journal Club</div><div class="sched-sub lang-th-inline">นำเสนอและวิจารณ์บทความวิชาการ</div><div class="sched-sub lang-en-inline">Critical appraisal of current literature</div><div class="sched-time"><i class="fa-solid fa-clock"></i> <span class="lang-th-inline">ทุกวันศุกร์</span><span class="lang-en-inline">Every Friday</span></div></div>
     </div>
-
-    <!-- Monthly -->
-    <div style="margin-bottom:12px;margin-top:20px;">
-      <div class="faculty-group-label">
-        <span class="lang-th-inline"><span>กิจกรรมประจำเดือน</span> · Monthly Conferences</span>
-        <span class="lang-en-inline">Monthly Conferences · <span>กิจกรรมประจำเดือน</span></span>
-      </div>
-    </div>
+    <div class="group-label" style="margin-top:20px"><span class="lang-th-inline"><span>กิจกรรมประจำเดือน</span> · Monthly Conferences</span><span class="lang-en-inline">Monthly Conferences</span></div>
     <div class="monthly-grid">
-      <div class="monthly-card fade-in">
-        <div class="monthly-icon"><i class="fa-solid fa-x-ray"></i></div>
-        <div>
-          <div class="monthly-title">
-            <span class="lang-th-inline">Chest–Radiology Conference</span>
-            <span class="lang-en-inline">Chest–Radiology Conference</span>
-          </div>
-          <div class="monthly-freq lang-th-inline">Inter-department · เดือนละ 1 ครั้ง</div>
-          <div class="monthly-freq lang-en-inline">Inter-department · Once monthly</div>
-        </div>
-      </div>
-      <div class="monthly-card fade-in">
-        <div class="monthly-icon"><i class="fa-solid fa-lungs"></i></div>
-        <div>
-          <div class="monthly-title">
-            <span class="lang-th-inline">Chest–Rheumato ILD Conference</span>
-            <span class="lang-en-inline">Chest–Rheumato ILD Conference</span>
-          </div>
-          <div class="monthly-freq lang-th-inline">ILD multidisciplinary · เดือนละ 1 ครั้ง</div>
-          <div class="monthly-freq lang-en-inline">ILD multidisciplinary team · Once monthly</div>
-        </div>
-      </div>
-      <div class="monthly-card fade-in">
-        <div class="monthly-icon"><i class="fa-solid fa-microscope"></i></div>
-        <div>
-          <div class="monthly-title">
-            <span class="lang-th-inline">Clinico-Pathological Conference</span>
-            <span class="lang-en-inline">Clinico-Pathological Conference</span>
-          </div>
-          <div class="monthly-freq lang-th-inline">CPC · เดือนละ 1 ครั้ง</div>
-          <div class="monthly-freq lang-en-inline">CPC · Once monthly</div>
-        </div>
-      </div>
+      <div class="monthly-card fade-in"><div class="monthly-icon"><i class="fa-solid fa-x-ray"></i></div><div><div class="monthly-title">Chest–Radiology Conference</div><div class="monthly-freq lang-th-inline">Inter-department · เดือนละ 1 ครั้ง</div><div class="monthly-freq lang-en-inline">Inter-department · Once monthly</div></div></div>
+      <div class="monthly-card fade-in"><div class="monthly-icon"><i class="fa-solid fa-lungs"></i></div><div><div class="monthly-title">Chest–Rheumato ILD Conference</div><div class="monthly-freq lang-th-inline">Multidisciplinary ILD · เดือนละ 1 ครั้ง</div><div class="monthly-freq lang-en-inline">ILD Multidisciplinary Team · Once monthly</div></div></div>
+      <div class="monthly-card fade-in"><div class="monthly-icon"><i class="fa-solid fa-microscope"></i></div><div><div class="monthly-title">Clinico-Pathological Conference</div><div class="monthly-freq lang-th-inline">CPC · เดือนละ 1 ครั้ง</div><div class="monthly-freq lang-en-inline">CPC · Once monthly</div></div></div>
     </div>
-
-    <!-- OPD Sub-specialty -->
-    <div class="opd-section">
-      <div style="margin-bottom:20px;">
-        <div class="faculty-group-label">
-          <span class="lang-th-inline"><span>คลินิกเฉพาะโรค</span> · OPD Sub-specialty Clinics</span>
-          <span class="lang-en-inline">OPD Sub-specialty Clinics</span>
-        </div>
-      </div>
+    <div style="margin-top:36px">
+      <div class="group-label"><span class="lang-th-inline"><span>คลินิกเฉพาะโรค</span> · OPD Sub-specialty</span><span class="lang-en-inline">OPD Sub-specialty Clinics</span></div>
       <div class="opd-grid">
-        <div class="opd-card fade-in">
-          <div class="opd-day lang-th-inline">จันทร์ / Monday</div>
-          <div class="opd-day lang-en-inline">Monday</div>
-          <div class="opd-name">Sleep Clinic</div>
-          <div class="opd-name-en lang-th-inline">คลินิกโรคการนอนหลับ</div>
-        </div>
-        <div class="opd-card fade-in">
-          <div class="opd-day lang-th-inline">อังคาร / Tuesday</div>
-          <div class="opd-day lang-en-inline">Tuesday</div>
-          <div class="opd-name">TB Clinic</div>
-          <div class="opd-name-en lang-th-inline">คลินิกวัณโรค</div>
-        </div>
-        <div class="opd-card fade-in">
-          <div class="opd-day lang-th-inline">อังคาร / Tuesday</div>
-          <div class="opd-day lang-en-inline">Tuesday</div>
-          <div class="opd-name">Airway &amp; Biologic Clinic</div>
-          <div class="opd-name-en lang-th-inline">คลินิกโรคระบบทางเดินหายใจ</div>
-        </div>
-        <div class="opd-card fade-in">
-          <div class="opd-day lang-th-inline">อังคาร / Tuesday</div>
-          <div class="opd-day lang-en-inline">Tuesday</div>
-          <div class="opd-name">ILD Clinic</div>
-          <div class="opd-name-en lang-th-inline">คลินิกโรคปอดเรื้อรัง ILD</div>
-        </div>
-        <div class="opd-card fade-in">
-          <div class="opd-day lang-th-inline">พฤหัสบดี / Thursday</div>
-          <div class="opd-day lang-en-inline">Thursday</div>
-          <div class="opd-name">General Chest Clinic</div>
-          <div class="opd-name-en lang-th-inline">คลินิกโรคปอดทั่วไป</div>
-        </div>
+        <div class="opd-card fade-in"><div class="opd-day lang-th-inline">จันทร์</div><div class="opd-day lang-en-inline">Monday</div><div class="opd-name">Sleep Clinic</div><div class="opd-name-en lang-th-inline">คลินิกโรคการนอนหลับ</div></div>
+        <div class="opd-card fade-in"><div class="opd-day lang-th-inline">อังคาร</div><div class="opd-day lang-en-inline">Tuesday</div><div class="opd-name">TB Clinic</div><div class="opd-name-en lang-th-inline">คลินิกวัณโรค</div></div>
+        <div class="opd-card fade-in"><div class="opd-day lang-th-inline">อังคาร</div><div class="opd-day lang-en-inline">Tuesday</div><div class="opd-name">Airway &amp; Biologic Clinic</div><div class="opd-name-en lang-th-inline">คลินิกทางเดินหายใจ</div></div>
+        <div class="opd-card fade-in"><div class="opd-day lang-th-inline">อังคาร</div><div class="opd-day lang-en-inline">Tuesday</div><div class="opd-name">ILD Clinic</div><div class="opd-name-en lang-th-inline">คลินิกโรคปอดเรื้อรัง</div></div>
+        <div class="opd-card fade-in"><div class="opd-day lang-th-inline">พฤหัสบดี</div><div class="opd-day lang-en-inline">Thursday</div><div class="opd-name">General Chest Clinic</div><div class="opd-name-en lang-th-inline">คลินิกโรคปอดทั่วไป</div></div>
       </div>
     </div>
-
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     EQUIPMENT
-══════════════════════════════════════════ -->
+<!-- EQUIPMENT -->
 <section id="equipment">
   <div class="section-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">เทคโนโลยีและอุปกรณ์</span>
-      <span class="lang-en-inline">Technology &amp; Equipment</span>
-    </div>
-    <h2 class="section-title">
-      <span class="lang-th-inline">ความพร้อมด้านอุปกรณ์เฉพาะทาง</span>
-      <span class="lang-en-inline">State-of-the-Art Specialized Equipment</span>
-    </h2>
+    <div class="section-label"><span class="lang-th-inline">เทคโนโลยีและอุปกรณ์</span><span class="lang-en-inline">Technology &amp; Equipment</span></div>
+    <h2 class="section-title"><span class="lang-th-inline">ความพร้อมด้านอุปกรณ์เฉพาะทาง</span><span class="lang-en-inline">State-of-the-Art Equipment</span></h2>
     <div class="divider"></div>
-    <p class="section-desc">
-      <span class="lang-th-inline">
-        ห้องปฏิบัติการและอุปกรณ์ครบครัน เพื่อการฝึกทักษะและประสบการณ์ระดับสูงสุด
-      </span>
-      <span class="lang-en-inline">
-        Comprehensive laboratories and equipment for the highest level of clinical training and skill development.
-      </span>
-    </p>
+    <p class="section-desc"><span class="lang-th-inline">ห้องปฏิบัติการและอุปกรณ์ครบครัน เพื่อการฝึกทักษะและประสบการณ์ระดับสูงสุด</span><span class="lang-en-inline">Comprehensive laboratories and equipment for the highest level of clinical training.</span></p>
     <div class="equip-grid">
-
-      <div class="equip-card fade-in">
-        <div class="equip-icon-wrap"><i class="fa-solid fa-wind"></i></div>
-        <div class="equip-title lang-th-inline">ห้อง Pulmonary Function Test</div>
-        <div class="equip-title lang-en-inline">Pulmonary Function Lab</div>
-        <div class="equip-subtitle">PFT Laboratory</div>
-        <ul class="equip-list">
-          <li>Spirometry</li>
-          <li>Lung Volume Measurement</li>
-          <li>Diffusion Capacity (DLCO)</li>
-          <li>Methacholine Challenge Test (MCT)</li>
-          <li>Cardiopulmonary Exercise Test (CPET)</li>
-        </ul>
-      </div>
-
-      <div class="equip-card fade-in">
-        <div class="equip-icon-wrap"><i class="fa-solid fa-stethoscope"></i></div>
-        <div class="equip-title lang-th-inline">ห้องส่องกล้อง (Endoscopy Suite)</div>
-        <div class="equip-title lang-en-inline">Interventional Pulmonology Suite</div>
-        <div class="equip-subtitle">Bronchoscopy &amp; IP Procedures</div>
-        <ul class="equip-list">
-          <li>Flexible Bronchoscopy</li>
-          <li>EBUS-TBNA · Radial EBUS</li>
-          <li>Transthoracic Needle Biopsy (TTNB)</li>
-          <li>Cryobiopsy (1.1 mm probe)</li>
-          <li>Pleuroscopy · IPC Insertion</li>
-          <li>Rigid Bronchoscopy</li>
-        </ul>
-      </div>
-
-      <div class="equip-card fade-in">
-        <div class="equip-icon-wrap"><i class="fa-solid fa-moon"></i></div>
-        <div class="equip-title lang-th-inline">ห้อง Sleep Laboratory</div>
-        <div class="equip-title lang-en-inline">Sleep Laboratory</div>
-        <div class="equip-subtitle">Sleep Medicine Center</div>
-        <ul class="equip-list">
-          <li>Full Polysomnography (PSG)</li>
-          <li>Split-Night Studies</li>
-          <li>CPAP / BiPAP Titration</li>
-          <li>Home Sleep Testing</li>
-        </ul>
-      </div>
-
-      <div class="equip-card fade-in">
-        <div class="equip-icon-wrap"><i class="fa-solid fa-heart-pulse"></i></div>
-        <div class="equip-title lang-th-inline">ห้อง ICU</div>
-        <div class="equip-title lang-en-inline">Intensive Care Unit</div>
-        <div class="equip-subtitle">Medical ICU</div>
-        <ul class="equip-list">
-          <li>Advanced Mechanical Ventilation</li>
-          <li>ECMO Program</li>
-          <li>Hemodynamic Monitoring</li>
-          <li>Renal Replacement Therapy</li>
-          <li>Point-of-care Ultrasound</li>
-        </ul>
-      </div>
-
+      <div class="equip-card fade-in"><div class="equip-icon-wrap"><i class="fa-solid fa-wind"></i></div><div class="equip-title lang-th-inline">ห้อง Pulmonary Function Test</div><div class="equip-title lang-en-inline">Pulmonary Function Lab</div><div class="equip-subtitle">PFT Laboratory</div><ul class="equip-list"><li>Spirometry</li><li>Lung Volume Measurement</li><li>Diffusion Capacity (DLCO)</li><li>Methacholine Challenge Test (MCT)</li><li>Cardiopulmonary Exercise Test (CPET)</li></ul></div>
+      <div class="equip-card fade-in"><div class="equip-icon-wrap"><i class="fa-solid fa-stethoscope"></i></div><div class="equip-title lang-th-inline">ห้องส่องกล้อง</div><div class="equip-title lang-en-inline">Interventional Pulmonology Suite</div><div class="equip-subtitle">Bronchoscopy &amp; IP Procedures</div><ul class="equip-list"><li>Flexible Bronchoscopy</li><li>EBUS-TBNA · Radial EBUS</li><li>Transthoracic Needle Biopsy (TTNB)</li><li>Cryobiopsy (1.1 mm probe)</li><li>Pleuroscopy · IPC Insertion</li><li>Rigid Bronchoscopy</li></ul></div>
+      <div class="equip-card fade-in"><div class="equip-icon-wrap"><i class="fa-solid fa-moon"></i></div><div class="equip-title lang-th-inline">ห้อง Sleep Laboratory</div><div class="equip-title lang-en-inline">Sleep Laboratory</div><div class="equip-subtitle">Sleep Medicine Center</div><ul class="equip-list"><li>Full Polysomnography (PSG)</li><li>Split-Night Studies</li><li>CPAP / BiPAP Titration</li><li>Home Sleep Testing</li></ul></div>
+      <div class="equip-card fade-in"><div class="equip-icon-wrap"><i class="fa-solid fa-heart-pulse"></i></div><div class="equip-title lang-th-inline">ห้อง ICU</div><div class="equip-title lang-en-inline">Intensive Care Unit</div><div class="equip-subtitle">Medical ICU</div><ul class="equip-list"><li>Advanced Mechanical Ventilation</li><li>ECMO Program</li><li>Hemodynamic Monitoring</li><li>Renal Replacement Therapy</li><li>Point-of-care Ultrasound</li></ul></div>
     </div>
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     RESEARCH
-══════════════════════════════════════════ -->
+<!-- RESEARCH -->
 <section id="research">
   <div class="section-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">ผลงานวิชาการ</span>
-      <span class="lang-en-inline">Academic Output</span>
-    </div>
-    <h2 class="section-title">
-      <span class="lang-th-inline">ผลงานวิจัย Fellow ระดับนานาชาติ</span>
-      <span class="lang-en-inline">Fellows' International Research Presentations</span>
-    </h2>
+    <div class="section-label"><span class="lang-th-inline">ผลงานวิชาการ</span><span class="lang-en-inline">Academic Output</span></div>
+    <h2 class="section-title"><span class="lang-th-inline">ผลงานวิจัย Fellow ระดับนานาชาติ</span><span class="lang-en-inline">Fellows' International Research</span></h2>
     <div class="divider"></div>
-    <p class="section-desc">
-      <span class="lang-th-inline">
-        Fellow ของเราได้รับโอกาสนำเสนองานวิจัยในเวทีนานาชาติ พร้อมทุนสนับสนุนการเดินทาง
-      </span>
-      <span class="lang-en-inline">
-        Our fellows have the opportunity to present research at international conferences, supported by travel grants.
-      </span>
-    </p>
-    <div class="research-intro fade-in">
-      <i class="fa-solid fa-globe"></i>
-      <div class="research-intro-text">
-        <strong class="lang-th-inline">ทุนการศึกษาเพื่อนำเสนอวิจัยที่ต่างประเทศ</strong>
-        <strong class="lang-en-inline">Research Travel Grant for International Conferences</strong>
-        <p class="lang-th-inline">Fellows ทุกคนมีโอกาสได้รับทุนเพื่อนำเสนองานวิจัยในการประชุมระดับนานาชาติ เช่น ERS, ESICM และอื่นๆ</p>
-        <p class="lang-en-inline">All fellows have the opportunity to receive funding to present research at international conferences such as ERS, ESICM, and others.</p>
-      </div>
-    </div>
+    <p class="section-desc"><span class="lang-th-inline">Fellow ของเราได้รับโอกาสนำเสนองานวิจัยในเวทีนานาชาติ พร้อมทุนสนับสนุนการเดินทาง</span><span class="lang-en-inline">Our fellows present research at international conferences, supported by travel grants.</span></p>
+    <div class="research-intro fade-in"><i class="fa-solid fa-globe"></i><div class="research-intro-text"><strong class="lang-th-inline">ทุนการศึกษาเพื่อนำเสนอวิจัยที่ต่างประเทศ</strong><strong class="lang-en-inline">International Research Travel Grant</strong><p class="lang-th-inline">Fellows ทุกคนมีโอกาสได้รับทุนนำเสนองานวิจัยในการประชุมระดับนานาชาติ เช่น ERS, ESICM</p><p class="lang-en-inline">All fellows may receive funding to present at conferences such as ERS and ESICM.</p></div></div>
     <div class="research-grid">
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1jVdCz-zdVXH9gbmQJiIzmP6u53U3Yo4j" alt="ESICM 2023" loading="lazy" />
-          <div class="conf-badge">ESICM</div>
-          <div class="year-badge">2023</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">European Society of Intensive Care Medicine · Milan 2023</div>
-          <div class="research-title">ROX Index to Predict Successful Extubation in High-risk Postextubation Failure Patients with High-flow Nasal Cannula</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Fellow</div>
-        </div>
-      </div>
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1b2DmZAeeSQ71b1XVUkl62u3Zwk6agTrl" alt="ISICM 2024" loading="lazy" />
-          <div class="conf-badge">ISICM</div>
-          <div class="year-badge">2024</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">International Symposium on Intensive Care Medicine · 2024</div>
-          <div class="research-title lang-th-inline">นำเสนอผลงานวิจัยด้าน Critical Care Medicine ในเวทีนานาชาติ</div>
-          <div class="research-title lang-en-inline">Critical Care Research Presentation at International Symposium</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Fellow</div>
-        </div>
-      </div>
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1q71n8_CIfbaK7UVM4472CzQB1FPeWNOl" alt="ERS 2025" loading="lazy" />
-          <div class="conf-badge gold">ERS Congress</div>
-          <div class="year-badge">2025</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">European Respiratory Society Congress · 2025</div>
-          <div class="research-title">Diagnostic Yield: R-EBUS + 1.1 mm Cryoprobe vs Forceps Biopsy in Peripheral Pulmonary Lesions (RCT)</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> Jaturon Poovieng et al.</div>
-        </div>
-      </div>
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1LQP3dJSWOoNTTpQfQxroXhtDogRDDh35" alt="ERS 2025" loading="lazy" />
-          <div class="conf-badge gold">ERS Congress</div>
-          <div class="year-badge">2025</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">European Respiratory Society Congress · 2025</div>
-          <div class="research-title">Forceps vs Forceps + 1.1 mm Cryobiopsy for Peripheral Pulmonary Lesions: Multicenter RCT</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> Thanabat Mahasaranon et al.</div>
-        </div>
-      </div>
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1UDWKnvarLM-veJnvh9DdtObMnMzTavyp" alt="ERS 2025" loading="lazy" />
-          <div class="conf-badge gold">ERS Congress</div>
-          <div class="year-badge">2025</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">European Respiratory Society Congress · 2025</div>
-          <div class="research-title">Cryobiopsy Techniques in Peripheral Pulmonary Lesions: Outcomes and Safety Analysis</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Research Team</div>
-        </div>
-      </div>
-
-      <div class="research-card fade-in">
-        <div class="research-img-wrap">
-          <img src="https://lh3.googleusercontent.com/d/1Ig1xd6hut4cvLRv7-20w6-NKaC6ch-c_" alt="ERS 2025" loading="lazy" />
-          <div class="conf-badge gold">ERS Congress</div>
-          <div class="year-badge">2025</div>
-        </div>
-        <div class="research-body">
-          <div class="research-conf-name">European Respiratory Society Congress · 2025</div>
-          <div class="research-title">R-EBUS Guided Cryobiopsy: Diagnostic Yield &amp; Safety in Peripheral Lung Lesions</div>
-          <div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Research Team</div>
-        </div>
-      </div>
-
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1jVdCz-zdVXH9gbmQJiIzmP6u53U3Yo4j" alt="ESICM 2023" loading="lazy"/><div class="conf-badge">ESICM</div><div class="year-badge">2023</div></div><div class="research-body"><div class="research-conf-name">European Society of Intensive Care Medicine · Milan 2023</div><div class="research-title">ROX Index to Predict Successful Extubation in High-risk Postextubation Failure Patients with High-flow Nasal Cannula</div><div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Fellow</div></div></div>
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1b2DmZAeeSQ71b1XVUkl62u3Zwk6agTrl" alt="ISICM 2024" loading="lazy"/><div class="conf-badge">ISICM</div><div class="year-badge">2024</div></div><div class="research-body"><div class="research-conf-name">International Symposium on Intensive Care Medicine · 2024</div><div class="research-title lang-th-inline">นำเสนอผลงานวิจัย Critical Care Medicine ในเวทีนานาชาติ</div><div class="research-title lang-en-inline">Critical Care Research at International Symposium</div><div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Fellow</div></div></div>
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1q71n8_CIfbaK7UVM4472CzQB1FPeWNOl" alt="ERS 2025" loading="lazy"/><div class="conf-badge gold">ERS Congress</div><div class="year-badge">2025</div></div><div class="research-body"><div class="research-conf-name">European Respiratory Society Congress · 2025</div><div class="research-title">Diagnostic Yield: R-EBUS + 1.1 mm Cryoprobe vs Forceps Biopsy in Peripheral Pulmonary Lesions (RCT)</div><div class="research-author"><i class="fa-solid fa-user"></i> Jaturon Poovieng et al.</div></div></div>
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1LQP3dJSWOoNTTpQfQxroXhtDogRDDh35" alt="ERS 2025" loading="lazy"/><div class="conf-badge gold">ERS Congress</div><div class="year-badge">2025</div></div><div class="research-body"><div class="research-conf-name">European Respiratory Society Congress · 2025</div><div class="research-title">Forceps vs Forceps + 1.1 mm Cryobiopsy for Peripheral Pulmonary Lesions: Multicenter RCT</div><div class="research-author"><i class="fa-solid fa-user"></i> Thanabat Mahasaranon et al.</div></div></div>
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1UDWKnvarLM-veJnvh9DdtObMnMzTavyp" alt="ERS 2025" loading="lazy"/><div class="conf-badge gold">ERS Congress</div><div class="year-badge">2025</div></div><div class="research-body"><div class="research-conf-name">European Respiratory Society Congress · 2025</div><div class="research-title">Cryobiopsy Techniques in Peripheral Pulmonary Lesions: Outcomes and Safety</div><div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Research Team</div></div></div>
+      <div class="research-card fade-in"><div class="research-img-wrap"><img src="https://lh3.googleusercontent.com/d/1Ig1xd6hut4cvLRv7-20w6-NKaC6ch-c_" alt="ERS 2025" loading="lazy"/><div class="conf-badge gold">ERS Congress</div><div class="year-badge">2025</div></div><div class="research-body"><div class="research-conf-name">European Respiratory Society Congress · 2025</div><div class="research-title">R-EBUS Guided Cryobiopsy: Diagnostic Yield &amp; Safety in Peripheral Lung Lesions</div><div class="research-author"><i class="fa-solid fa-user"></i> PMK PCCM Research Team</div></div></div>
     </div>
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     FELLOW BENEFITS
-══════════════════════════════════════════ -->
+<!-- BENEFITS -->
 <section id="benefits">
   <div class="section-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">ผลประโยชน์และสวัสดิการ</span>
-      <span class="lang-en-inline">Benefits &amp; Support</span>
-    </div>
-    <h2 class="section-title">
-      <span class="lang-th-inline">สิ่งที่ Fellow จะได้รับ</span>
-      <span class="lang-en-inline">What Fellows Receive</span>
-    </h2>
+    <div class="section-label"><span class="lang-th-inline">ผลประโยชน์และสวัสดิการ</span><span class="lang-en-inline">Benefits &amp; Support</span></div>
+    <h2 class="section-title"><span class="lang-th-inline">สิ่งที่ Fellow จะได้รับ</span><span class="lang-en-inline">What Fellows Receive</span></h2>
     <div class="divider"></div>
-    <p class="section-desc">
-      <span class="lang-th-inline">
-        เราดูแล Fellow อย่างครบวงจร ทั้งด้านวิชาการ ที่พักอาศัย การพัฒนาทางวิชาชีพ และความเป็นอยู่ที่ดี
-      </span>
-      <span class="lang-en-inline">
-        We provide comprehensive support for fellows — academic, residential, professional development, and well-being.
-      </span>
-    </p>
+    <p class="section-desc"><span class="lang-th-inline">เราดูแล Fellow อย่างครบวงจร ทั้งวิชาการ ที่พัก การพัฒนาวิชาชีพ และความเป็นอยู่ที่ดี</span><span class="lang-en-inline">Comprehensive support — academic, residential, professional development, and well-being.</span></p>
     <div class="benefits-grid">
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-globe"></i></div>
-        <div class="benefit-title lang-th-inline">ทุนนำเสนอวิจัยต่างประเทศ</div>
-        <div class="benefit-title lang-en-inline">International Research Grant</div>
-        <div class="benefit-desc lang-th-inline">ทุนการศึกษาสำหรับนำเสนองานวิจัยในการประชุมวิชาการระดับนานาชาติ เช่น ERS, ESICM</div>
-        <div class="benefit-desc lang-en-inline">Scholarship to present research at international conferences such as ERS and ESICM.</div>
-      </div>
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-house"></i></div>
-        <div class="benefit-title lang-th-inline">หอพักภายในโรงพยาบาล</div>
-        <div class="benefit-title lang-en-inline">On-Campus Housing</div>
-        <div class="benefit-desc lang-th-inline">หอพักแพทย์ประจำบ้านต่อยอดภายในโรงพยาบาล สะดวก ปลอดภัย ใกล้ที่ทำงาน</div>
-        <div class="benefit-desc lang-en-inline">On-campus resident doctor housing — convenient, safe, and close to the workplace.</div>
-      </div>
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
-        <div class="benefit-title lang-th-inline">วันหยุดพักร้อน 10 วัน</div>
-        <div class="benefit-title lang-en-inline">10 Days Annual Leave</div>
-        <div class="benefit-desc lang-th-inline">พักร้อนได้ปีละ 10 วัน เพื่อการพักผ่อนและฟื้นฟูร่างกายและจิตใจ</div>
-        <div class="benefit-desc lang-en-inline">10 days of annual leave per year for rest and personal renewal.</div>
-      </div>
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-plane-departure"></i></div>
-        <div class="benefit-title lang-th-inline">Elective ต่างประเทศ พร้อมทุน</div>
-        <div class="benefit-title lang-en-inline">International Elective with Funding</div>
-        <div class="benefit-desc lang-th-inline">เลือก elective ต่างประเทศได้ 1–2 เดือน พร้อมทุนการศึกษาสนับสนุน</div>
-        <div class="benefit-desc lang-en-inline">Choose 1–2 months of international elective with full scholarship support.</div>
-      </div>
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-        <div class="benefit-title lang-th-inline">ทริปหน่วยประจำปี</div>
-        <div class="benefit-title lang-en-inline">Annual Department Outing</div>
-        <div class="benefit-desc lang-th-inline">กิจกรรม outing ประจำปีของหน่วย เสริมสร้างความสัมพันธ์และความสามัคคีในทีม</div>
-        <div class="benefit-desc lang-en-inline">Annual department trip to strengthen team bonds and create lasting memories.</div>
-      </div>
-
-      <div class="benefit-card fade-in">
-        <div class="benefit-icon"><i class="fa-solid fa-book-open"></i></div>
-        <div class="benefit-title lang-th-inline">ติวเตรียมสอบบอร์ด</div>
-        <div class="benefit-title lang-en-inline">Board Exam Preparation</div>
-        <div class="benefit-desc lang-th-inline">ติวสอบบอร์ดภายในหน่วยโดยทีมอาจารย์ผู้เชี่ยวชาญ เพิ่มความมั่นใจในการสอบ</div>
-        <div class="benefit-desc lang-en-inline">In-house board exam preparation sessions led by expert faculty to maximize success.</div>
-      </div>
-
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-globe"></i></div><div class="benefit-title lang-th-inline">ทุนนำเสนอวิจัยต่างประเทศ</div><div class="benefit-title lang-en-inline">International Research Grant</div><div class="benefit-desc lang-th-inline">ทุนสำหรับนำเสนองานวิจัยในการประชุมนานาชาติ เช่น ERS, ESICM</div><div class="benefit-desc lang-en-inline">Funding to present research at international conferences such as ERS and ESICM.</div></div>
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-house"></i></div><div class="benefit-title lang-th-inline">หอพักภายในโรงพยาบาล</div><div class="benefit-title lang-en-inline">On-Campus Housing</div><div class="benefit-desc lang-th-inline">หอพักแพทย์ประจำบ้านต่อยอดภายในโรงพยาบาล สะดวก ปลอดภัย ใกล้ที่ทำงาน</div><div class="benefit-desc lang-en-inline">On-campus resident housing — convenient, safe, close to the workplace.</div></div>
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-umbrella-beach"></i></div><div class="benefit-title lang-th-inline">วันหยุดพักร้อน 10 วัน</div><div class="benefit-title lang-en-inline">10 Days Annual Leave</div><div class="benefit-desc lang-th-inline">พักร้อนได้ปีละ 10 วัน เพื่อการพักผ่อนและฟื้นฟูร่างกายจิตใจ</div><div class="benefit-desc lang-en-inline">10 days of annual leave for rest and personal renewal.</div></div>
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-plane-departure"></i></div><div class="benefit-title lang-th-inline">Elective ต่างประเทศ พร้อมทุน</div><div class="benefit-title lang-en-inline">International Elective + Grant</div><div class="benefit-desc lang-th-inline">เลือก elective ต่างประเทศได้ 1–2 เดือน พร้อมทุนการศึกษา</div><div class="benefit-desc lang-en-inline">1–2 months international elective with full scholarship support.</div></div>
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-map-location-dot"></i></div><div class="benefit-title lang-th-inline">ทริปหน่วยประจำปี</div><div class="benefit-title lang-en-inline">Annual Department Outing</div><div class="benefit-desc lang-th-inline">กิจกรรม outing ประจำปีเสริมสร้างความสัมพันธ์และความสามัคคีในทีม</div><div class="benefit-desc lang-en-inline">Annual department trip to strengthen team bonds and morale.</div></div>
+      <div class="benefit-card fade-in"><div class="benefit-icon"><i class="fa-solid fa-book-open"></i></div><div class="benefit-title lang-th-inline">ติวเตรียมสอบบอร์ด</div><div class="benefit-title lang-en-inline">Board Exam Preparation</div><div class="benefit-desc lang-th-inline">ติวสอบบอร์ดภายในหน่วยโดยทีมอาจารย์ผู้เชี่ยวชาญ เพิ่มความมั่นใจในการสอบ</div><div class="benefit-desc lang-en-inline">In-house board exam prep sessions led by expert faculty.</div></div>
     </div>
 
-    <!-- Resident Room / On-call Section -->
-    <div style="background:var(--white);border-radius:var(--radius);padding:32px 36px;box-shadow:var(--shadow);display:flex;gap:32px;flex-wrap:wrap;align-items:center;" class="fade-in">
-      <div style="flex:1;min-width:220px;">
-        <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px;">
-          <span class="lang-th-inline">ที่พักและสิ่งอำนวยความสะดวก</span>
-          <span class="lang-en-inline">Accommodation &amp; Facilities</span>
+    <!-- ★ Dormitory Photo Gallery ★ -->
+    <div class="dorm-section fade-in">
+      <div class="dorm-header">
+        <div class="dorm-header-icon"><i class="fa-solid fa-house"></i></div>
+        <div>
+          <h3 class="lang-th-inline">หอพักแพทย์ประจำบ้านต่อยอด</h3>
+          <h3 class="lang-en-inline">Resident Doctor Housing</h3>
+          <p class="lang-th-inline">ที่พักภายในโรงพยาบาล สะดวกสบาย พร้อมสิ่งอำนวยความสะดวกครบครัน</p>
+          <p class="lang-en-inline">On-campus accommodation — comfortable, convenient, and fully equipped</p>
         </div>
-        <h3 style="font-size:22px;font-weight:800;color:var(--navy);margin-bottom:10px;">
-          <span class="lang-th-inline">ดูแลครบครัน ตลอด Fellowship</span>
-          <span class="lang-en-inline">Full Support Throughout Your Fellowship</span>
-        </h3>
-        <p style="font-size:14px;color:var(--muted);line-height:1.7;">
-          <span class="lang-th-inline">
-            ทั้งห้องพักแพทย์ประจำบ้าน ห้องนอนเวร และสวัสดิการอื่นๆ ถูกจัดเตรียมไว้อย่างดี เพื่อให้ Fellow สามารถโฟกัสกับการเรียนรู้และการพัฒนาวิชาชีพได้อย่างเต็มที่
-          </span>
-          <span class="lang-en-inline">
-            Resident rooms, on-call rooms, and other welfare facilities are well-prepared so that fellows can fully focus on learning and professional development.
-          </span>
-        </p>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;flex-shrink:0;">
-        <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:12px 18px;">
-          <i class="fa-solid fa-bed" style="color:var(--navy);font-size:18px;"></i>
-          <span style="font-size:13.5px;font-weight:600;color:var(--navy);">
-            <span class="lang-th-inline">ห้องพักแพทย์</span>
-            <span class="lang-en-inline">Doctor's Quarters</span>
-          </span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:12px 18px;">
-          <i class="fa-solid fa-moon" style="color:var(--navy);font-size:18px;"></i>
-          <span style="font-size:13.5px;font-weight:600;color:var(--navy);">
-            <span class="lang-th-inline">ห้องนอนเวร</span>
-            <span class="lang-en-inline">On-call Room</span>
-          </span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:12px 18px;">
-          <i class="fa-solid fa-building" style="color:var(--navy);font-size:18px;"></i>
-          <span style="font-size:13.5px;font-weight:600;color:var(--navy);">
-            <span class="lang-th-inline">หอพักภายในรพ.</span>
-            <span class="lang-en-inline">Hospital Dormitory</span>
-          </span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:12px 18px;">
-          <i class="fa-solid fa-person-chalkboard" style="color:var(--navy);font-size:18px;"></i>
-          <span style="font-size:13.5px;font-weight:600;color:var(--navy);">
-            <span class="lang-th-inline">ห้องประชุมวิชาการ</span>
-            <span class="lang-en-inline">Academic Conference Room</span>
-          </span>
-        </div>
+      <div class="dorm-gallery-grid">
+        <div class="dorm-photo"><img src="https://lh3.googleusercontent.com/d/1ucIxvMpeCV2fXS05VkFzBJAVxRCmFru3" alt="หอพักแพทย์ 1" loading="lazy"/></div>
+        <div class="dorm-photo"><img src="https://lh3.googleusercontent.com/d/1CxzExTFwjn8BfCgI5xJp-L1x5Ul6OF-a" alt="หอพักแพทย์ 2" loading="lazy"/></div>
+        <div class="dorm-photo"><img src="https://lh3.googleusercontent.com/d/19W-Os-ZV6BVMUBTCQG2dWJvMEHdci-1d" alt="หอพักแพทย์ 3" loading="lazy"/></div>
       </div>
     </div>
 
+    <!-- Facility tags -->
+    <div class="facility-tags-row fade-in">
+      <div class="ft-label"><span class="lang-th-inline">สิ่งอำนวยความสะดวก :</span><span class="lang-en-inline">Facilities :</span></div>
+      <div class="ft-tag"><i class="fa-solid fa-bed"></i> <span class="lang-th-inline">ห้องพักแพทย์</span><span class="lang-en-inline">Doctor's Quarters</span></div>
+      <div class="ft-tag"><i class="fa-solid fa-moon"></i> <span class="lang-th-inline">ห้องนอนเวร</span><span class="lang-en-inline">On-call Room</span></div>
+      <div class="ft-tag"><i class="fa-solid fa-building"></i> <span class="lang-th-inline">หอพักภายในรพ.</span><span class="lang-en-inline">Hospital Dormitory</span></div>
+      <div class="ft-tag"><i class="fa-solid fa-person-chalkboard"></i> <span class="lang-th-inline">ห้องประชุมวิชาการ</span><span class="lang-en-inline">Conference Room</span></div>
+    </div>
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     CONTACT / CTA
-══════════════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact">
-  <div class="contact-bg">
-    <div class="orb-1"></div>
-    <div class="orb-2"></div>
-  </div>
+  <div class="contact-bg-glow"></div>
   <div class="contact-inner">
-    <div class="section-label">
-      <span class="lang-th-inline">ก้าวต่อไปในอาชีพของคุณ</span>
-      <span class="lang-en-inline">Advance Your Career</span>
+    <div class="section-label"><span class="lang-th-inline">ก้าวต่อไปในอาชีพ</span><span class="lang-en-inline">Advance Your Career</span></div>
+    <h2 class="contact-tagline"><span class="lang-th-inline">ร่วมเป็นส่วนหนึ่งของ<br/><span class="gold-hl">PMK PCCM Fellowship</span></span><span class="lang-en-inline">Be Part of<br/><span class="gold-hl">PMK PCCM Fellowship</span></span></h2>
+    <p class="contact-sub"><span class="lang-th-inline">โอกาสที่คุณจะได้รับการฝึกอบรมจากผู้เชี่ยวชาญระดับประเทศ ในสภาพแวดล้อมที่พร้อมทั้งอุปกรณ์และการสนับสนุน</span><span class="lang-en-inline">Train under nationally recognized experts in a fully equipped environment — grow to the international level.</span></p>
+
+    <!-- ★ Position Info ★ -->
+    <div class="position-info-box">
+      <div class="pi-item"><div class="pi-icon"><i class="fa-solid fa-users"></i></div><div class="pi-text"><strong><span class="lang-th-inline">รับสมัคร 3 ตำแหน่ง</span><span class="lang-en-inline">3 Open Positions</span></strong><span><span class="lang-th-inline">ประจำปีการศึกษา</span><span class="lang-en-inline">per academic year</span></span></div></div>
+      <div class="pi-div"></div>
+      <div class="pi-item"><div class="pi-icon"><i class="fa-solid fa-building-columns"></i></div><div class="pi-text"><strong><span class="lang-th-inline">ประเภทมีต้นสังกัด</span><span class="lang-en-inline">Sponsored</span></strong><span><span class="lang-th-inline">บุคลากรจากหน่วยงานต้นสังกัด</span><span class="lang-en-inline">From affiliated institutions</span></span></div></div>
+      <div class="pi-div"></div>
+      <div class="pi-item"><div class="pi-icon"><i class="fa-solid fa-user-plus"></i></div><div class="pi-text"><strong><span class="lang-th-inline">ประเภทอิสระ</span><span class="lang-en-inline">Independent</span></strong><span><span class="lang-th-inline">เปิดรับบุคคลทั่วไป</span><span class="lang-en-inline">Open to all applicants</span></span></div></div>
     </div>
-    <h2 class="contact-tagline">
-      <span class="lang-th-inline">ร่วมเป็นส่วนหนึ่งของ<br/><span class="gold-hl">PMK PCCM Fellowship</span></span>
-      <span class="lang-en-inline">Be Part of<br/><span class="gold-hl">PMK PCCM Fellowship</span></span>
-    </h2>
-    <p class="contact-sub">
-      <span class="lang-th-inline">โอกาสที่คุณจะได้รับการฝึกอบรมจากผู้เชี่ยวชาญระดับประเทศ ในสภาพแวดล้อมที่พร้อมทั้งอุปกรณ์และการสนับสนุน พัฒนาตนเองสู่ระดับนานาชาติ</span>
-      <span class="lang-en-inline">An unparalleled opportunity to train under nationally recognized experts in a fully equipped environment — develop yourself to the international level.</span>
-    </p>
+
     <div class="contact-perks">
-      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">คณาจารย์ระดับประเทศ 9 ท่าน</span><span class="lang-en-inline">9 National Expert Faculty</span></div>
+      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">คณาจารย์ 9 ท่าน</span><span class="lang-en-inline">9 Expert Faculty</span></div>
       <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">อุปกรณ์ครบครัน</span><span class="lang-en-inline">Fully-equipped Labs</span></div>
-      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">ทุนวิจัยต่างประเทศ</span><span class="lang-en-inline">International Research Grant</span></div>
+      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">ทุนวิจัยต่างประเทศ</span><span class="lang-en-inline">Research Grant</span></div>
       <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">หอพักภายในรพ.</span><span class="lang-en-inline">On-campus Housing</span></div>
-      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">Elective ต่างประเทศ</span><span class="lang-en-inline">International Elective</span></div>
+      <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">Elective ต่างประเทศ</span><span class="lang-en-inline">Int'l Elective</span></div>
       <div class="contact-perk"><i class="fa-solid fa-check-circle"></i> <span class="lang-th-inline">ติวสอบบอร์ด</span><span class="lang-en-inline">Board Exam Prep</span></div>
     </div>
 
     <div class="contact-box">
       <div class="contact-info-card">
-        <h3>
-          <span class="lang-th-inline">ติดต่อสอบถาม</span>
-          <span class="lang-en-inline">Contact Us</span>
-        </h3>
-        <div class="contact-row">
-          <i class="fa-solid fa-user"></i>
-          <span>
-            <strong style="display:block;color:white;">
-              <span class="lang-th-inline">คุณสุรีรัตน์ ผลดี</span>
-              <span class="lang-en-inline">Khun Sureerat Pholdee</span>
-            </strong>
-            <span class="lang-th-inline">ธุรการสาขา</span>
-            <span class="lang-en-inline">Division Administrative Officer</span>
-          </span>
-        </div>
-        <div class="contact-row">
-          <i class="fa-solid fa-phone"></i>
-          <span>063-798-7538<br/>02-763-3319</span>
-        </div>
-        <div class="contact-row">
-          <i class="fa-solid fa-envelope"></i>
-          <span>8pmkpccm@gmail.com</span>
-        </div>
-        <div class="contact-row">
-          <i class="fa-solid fa-hospital"></i>
-          <span>
-            <span class="lang-th-inline">แผนกอายุรกรรมโรคปอดฯ กองอายุรกรรม โรงพยาบาลพระมงกุฎเกล้า</span>
-            <span class="lang-en-inline">Division of Pulmonary &amp; Critical Care Medicine, Phramongkutklao Hospital</span>
-          </span>
-        </div>
+        <h3><span class="lang-th-inline">ติดต่อสอบถาม</span><span class="lang-en-inline">Contact Us</span></h3>
+        <div class="contact-row"><i class="fa-solid fa-user"></i><span><strong><span class="lang-th-inline">คุณสุรีรัตน์ ผลดี</span><span class="lang-en-inline">Khun Sureerat Pholdee</span></strong><span class="lang-th-inline">ธุรการสาขา · Administrative Officer</span><span class="lang-en-inline">Division Administrative Officer</span></span></div>
+        <div class="contact-row"><i class="fa-solid fa-phone"></i><span>063-798-7538<br/>02-763-3319</span></div>
+        <div class="contact-row"><i class="fa-solid fa-envelope"></i><span>8pmkpccm@gmail.com</span></div>
+        <div class="contact-row"><i class="fa-solid fa-hospital"></i><span><span class="lang-th-inline">แผนกอายุรกรรมโรคปอดและเวชบำบัดวิกฤต<br/>กองอายุรกรรม โรงพยาบาลพระมงกุฎเกล้า</span><span class="lang-en-inline">Division of Pulmonary &amp; Critical Care Medicine<br/>Phramongkutklao Hospital, Bangkok</span></span></div>
       </div>
-
+      <!-- ★ Real QR Code ★ -->
       <div class="qr-card">
-        <h3>
-          <span class="lang-th-inline">สมัคร Fellowship</span>
-          <span class="lang-en-inline">Apply for Fellowship</span>
-        </h3>
-        <div class="qr-placeholder">
-          <i class="fa-solid fa-qrcode"></i>
-          <span class="lang-th-inline">QR Code<br/>สมัคร Fellow</span>
-          <span class="lang-en-inline">QR Code<br/>Apply Here</span>
+        <h3><span class="lang-th-inline">สแกน QR เพื่อสมัคร</span><span class="lang-en-inline">Scan QR to Apply</span></h3>
+        <div class="qr-img-wrap">
+          <img src="https://lh3.googleusercontent.com/d/1WISzRJlYQ-Yzw94MFiO4Vh0w4ec3BsOF" alt="QR Code สมัคร Fellow PMK PCCM" />
         </div>
-        <p class="qr-desc">
-          <span class="lang-th-inline">สแกน QR หรือกดปุ่มด้านล่างเพื่อกรอกใบสมัคร<br/>(เร็วๆ นี้)</span>
-          <span class="lang-en-inline">Scan QR code or click below to apply.<br/>(Coming soon)</span>
-        </p>
+        <p class="qr-desc"><span class="lang-th-inline">สแกน QR code หรือกดปุ่มด้านล่าง<br/>เพื่อกรอกใบสมัคร Fellowship</span><span class="lang-en-inline">Scan QR code or click below<br/>to complete the fellowship application</span></p>
       </div>
     </div>
 
     <div class="cta-buttons">
-      <button class="btn-cta-primary" onclick="alert('Application link coming soon! กรุณาติดต่อ 063-798-7538 หรือ email: 8pmkpccm@gmail.com')">
-        <i class="fa-solid fa-paper-plane"></i>
-        <span class="lang-th-inline">สมัคร Fellowship เลย!</span>
-        <span class="lang-en-inline">Apply for Fellowship Now!</span>
-      </button>
-      <button class="btn-cta-outline" onclick="window.location.href='tel:0637987538'">
-        <i class="fa-solid fa-phone"></i>
-        <span class="lang-th-inline">โทรสอบถาม</span>
-        <span class="lang-en-inline">Call Us</span>
-      </button>
-      <button class="btn-cta-outline" onclick="window.location.href='mailto:8pmkpccm@gmail.com'">
-        <i class="fa-solid fa-envelope"></i>
-        Email
-      </button>
+      <button class="btn-cta-primary" onclick="alert('กรุณาสแกน QR code หรือติดต่อ 063-798-7538 / 8pmkpccm@gmail.com')"><i class="fa-solid fa-paper-plane"></i> <span class="lang-th-inline">สมัคร Fellowship เลย!</span><span class="lang-en-inline">Apply for Fellowship!</span></button>
+      <button class="btn-cta-outline" onclick="window.location.href='tel:0637987538'"><i class="fa-solid fa-phone"></i> <span class="lang-th-inline">โทรสอบถาม</span><span class="lang-en-inline">Call Us</span></button>
+      <button class="btn-cta-outline" onclick="window.location.href='mailto:8pmkpccm@gmail.com'"><i class="fa-solid fa-envelope"></i> Email</button>
     </div>
   </div>
 </section>
 
-
-<!-- ══════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://lh3.googleusercontent.com/d/1k6L4Doe6l9z5atInseU8IWqQa_zItihv" alt="PMK PCCM" />
-      <span>
-        <strong>PMK PCCM</strong> ·
-        <span class="lang-th-inline">แผนกอายุรกรรมโรคปอดและเวชบำบัดวิกฤต โรงพยาบาลพระมงกุฎเกล้า</span>
-        <span class="lang-en-inline">Division of Pulmonary &amp; Critical Care Medicine, Phramongkutklao Hospital</span>
-      </span>
-    </div>
+    <div class="footer-brand"><img src="https://lh3.googleusercontent.com/d/1k6L4Doe6l9z5atInseU8IWqQa_zItihv" alt="PMK PCCM"/><span><strong>PMK PCCM</strong> · <span class="lang-th-inline">แผนกอายุรกรรมโรคปอดและเวชบำบัดวิกฤต โรงพยาบาลพระมงกุฎเกล้า</span><span class="lang-en-inline">Division of Pulmonary &amp; Critical Care Medicine, Phramongkutklao Hospital</span></span></div>
     <div class="footer-copy">© 2026 PMK PCCM · All rights reserved</div>
   </div>
 </footer>
 
-
-<!-- ══════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════ -->
 <script>
-  /* ── Language Toggle ── */
-  let currentLang = 'th';
-  function toggleLang() {
-    const body = document.body;
-    const btn = document.getElementById('langToggle');
-    if (currentLang === 'th') {
-      currentLang = 'en';
-      body.classList.add('en-mode');
-      btn.textContent = 'ไทย';
-      document.documentElement.lang = 'en';
-    } else {
-      currentLang = 'th';
-      body.classList.remove('en-mode');
-      btn.textContent = 'EN';
-      document.documentElement.lang = 'th';
-    }
-  }
-
-  /* ── Scroll Animations ── */
-  const fadeEls = document.querySelectorAll('.fade-in');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        // stagger siblings
-        const siblings = Array.from(e.target.parentElement.querySelectorAll('.fade-in'));
-        const idx = siblings.indexOf(e.target);
-        setTimeout(() => e.target.classList.add('visible'), idx * 80);
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  fadeEls.forEach(el => observer.observe(el));
-
-  /* ── Navbar active link highlight ── */
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current
-        ? 'var(--gold-light)' : '';
-      a.style.background = a.getAttribute('href') === '#' + current
-        ? 'rgba(201,162,42,.12)' : '';
-    });
-  });
-
-  /* ── Navbar shrink on scroll ── */
-  const nav = document.querySelector('nav');
-  window.addEventListener('scroll', () => {
-    nav.style.height = window.scrollY > 60 ? '52px' : '64px';
-  });
-
-  /* ── EN-mode head badge fix ── */
-  document.querySelectorAll('.head-badge.lang-en-inline').forEach(b => {
-    b.style.display = 'none'; // let CSS handle it
-  });
-  document.addEventListener('click', () => {}); // force repaint
-
+  let lang='th';
+  function toggleLang(){lang=lang==='th'?'en':'th';document.body.classList.toggle('en-mode',lang==='en');document.getElementById('langToggle').textContent=lang==='th'?'EN':'ไทย';document.documentElement.lang=lang;}
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const sib=Array.from(e.target.parentElement.querySelectorAll('.fade-in'));const idx=sib.indexOf(e.target);setTimeout(()=>e.target.classList.add('visible'),Math.min(idx*75,300));obs.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -32px 0px'});
+  document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+  const secs=document.querySelectorAll('section[id]');const nls=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{let cur='';secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});nls.forEach(a=>{const act=a.getAttribute('href')==='#'+cur;a.style.color=act?'var(--navy)':'';a.style.background=act?'var(--navy-pale)':'';});document.getElementById('mainNav').style.height=window.scrollY>60?'52px':'64px';});
 </script>
-
 </body>
 </html>
